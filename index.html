@@ -10,12 +10,10 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800;900&display=swap" rel="stylesheet">
 
-    <!-- Prevent FOUC & Raw Alpine Syntax -->
     <style>
         [x-cloak] { display: none !important; }
         body { font-family: 'Manrope', sans-serif; background-color: #0A1428; color: #F4F6F9; }
         
-        /* Subtle Glitch (Quiet Presence) */
         .glitch-quiet { position: relative; display: inline-block; color: #8B9BB4; font-weight: 800; transition: color 0.3s; }
         .glitch-quiet:hover { color: #F4F6F9; }
         .glitch-quiet::before, .glitch-quiet::after {
@@ -26,7 +24,6 @@
         @keyframes drift-1 { 0%{clip-path:inset(15% 0 85% 0)} 50%{clip-path:inset(75% 0 5% 0)} 100%{clip-path:inset(35% 0 45% 0)} }
         @keyframes drift-2 { 0%{clip-path:inset(85% 0 5% 0)} 50%{clip-path:inset(25% 0 65% 0)} 100%{clip-path:inset(65% 0 15% 0)} }
 
-        /* Hero Glitch (Active) */
         .glitch-hero { position: relative; display: inline-block; color: white; font-weight: 900; }
         .glitch-hero::before, .glitch-hero::after {
             content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.8;
@@ -34,17 +31,14 @@
         .glitch-hero::before { left: 2px; text-shadow: -2px 0 #FF3B5C; animation: drift-1 2.5s infinite linear alternate-reverse; }
         .glitch-hero::after { left: -2px; text-shadow: -2px 0 #00E5FF; animation: drift-2 3s infinite linear alternate-reverse; }
 
-        /* Horizontal Scroll Gallery */
         .gallery-scroll { overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
         .gallery-scroll::-webkit-scrollbar { display: none; }
         .gallery-scroll { -ms-overflow-style: none; scrollbar-width: none; }
         .case-slide { scroll-snap-align: center; flex-shrink: 0; }
 
-        /* Glass Card */
         .glass-card { background: rgba(17, 29, 51, 0.5); backdrop-filter: blur(16px); border: 1px solid rgba(26, 43, 69, 0.6); transition: all 0.4s ease; }
         .glass-card:hover { border-color: #00E5FF; box-shadow: 0 0 30px rgba(0, 229, 255, 0.1); }
 
-        /* Scanlines & BG Watermark */
         .scanlines { background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.12) 50%, rgba(0,0,0,0.12)); background-size: 100% 4px; pointer-events: none; }
         .bg-watermark { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 25vw; font-weight: 900; opacity: 0.03; pointer-events: none; white-space: nowrap; z-index: 0; }
     </style>
@@ -61,31 +55,57 @@
             }
         }
 
-        // Alpine Data Function (Safe from attribute parsing errors)
         function appData() {
             return {
                 activeCase: null,
                 cases: [
                     {
-                        id: 0, title: 'Косметический бренд «Эфир»', category: 'Rebranding',
-                        color: 'text-brand-cyan', border: 'border-brand-cyan', image: '🧠',
-                        shortDesc: 'Образ бренда, передающий чистоту и технологичность.',
-                        fullDesc: '<p><span class="text-brand-red font-bold">Задача:</span> Создать образ бренда "Эфир", передающий чистоту и технологичность.</p><p class="mt-2"><span class="text-white font-bold">Смысл:</span> Красота как наука. Алгоритмы сгенерировали 1200 итераций логотипа для поиска идеальной формы.</p>',
-                        stats: { val1: '4 дня', label1: 'Срок', val2: '-70%', label2: 'Бюджет', val3: 'Запуск', label3: 'Статус' }
+                        id: 0, 
+                        title: 'Люминария', 
+                        category: 'Branding & Strategy',
+                        color: 'text-brand-cyan', 
+                        border: 'border-brand-cyan', 
+                        heroImage: 'https://via.placeholder.com/1200x675/111D33/00E5FF?text=Luminaria+Hero',
+                        gallery: [
+                            'https://via.placeholder.com/800x600/111D33/00E5FF?text=Photo+2',
+                            'https://via.placeholder.com/800x600/111D33/00E5FF?text=Photo+3',
+                            'https://via.placeholder.com/800x600/111D33/00E5FF?text=Photo+4',
+                            'https://via.placeholder.com/800x600/111D33/00E5FF?text=Photo+5'
+                        ],
+                        shortDesc: 'Морские светильники. Лампы-филаменты, вдохновлённые люминесцентным сиянием медуз северных морей.',
+                        fullDesc: '<p><span class="text-brand-red font-bold">Задача:</span> Создать современные лампы-филаменты с эмоциональной связью и поэтикой северного океана. Отличиться от стандартных решений на рынке.</p><p class="mt-4"><span class="text-white font-bold">Концепция:</span> Аурелия, Пелагия, Медуза-луна — прозрачные странники глубины, что веками светили в холодной воде, словно маленькие звёзды под толщей океана.</p><p class="mt-4"><span class="text-brand-cyan font-bold">Результат:</span> Бренд «Люминария» — морские светильники. Свет, что рождается в океане. Каждая лампа стала продолжением истории о медузах с визуальной айдентикой в холодных северных цветах.</p>'
                     },
                     {
-                        id: 1, title: 'Финтех-приложение «Flow»', category: 'Product Design',
-                        color: 'text-brand-red', border: 'border-brand-red', image: '',
-                        shortDesc: 'Невидимый интерфейс для зумеров.',
-                        fullDesc: '<p><span class="text-brand-red font-bold">Задача:</span> Упростить UX. Сделать интерфейс "невидимым".</p><p class="mt-2"><span class="text-white font-bold">Смысл:</span> Деньги без стресса. 60% кода фронтенда сгенерировано Copilot, команда фокусировалась на микро-анимациях.</p>',
-                        stats: { val1: '3 нед', label1: 'MVP', val2: '+22%', label2: 'Конверсия', val3: 'Live', label3: 'Статус' }
+                        id: 1, 
+                        title: 'OBSCURA', 
+                        category: 'Premium Branding',
+                        color: 'text-brand-sky', 
+                        border: 'border-brand-sky', 
+                        heroImage: 'https://via.placeholder.com/1200x675/111D33/7DD3FC?text=OBSCURA+Hero',
+                        gallery: [
+                            'https://via.placeholder.com/800x600/111D33/7DD3FC?text=Photo+2',
+                            'https://via.placeholder.com/800x600/111D33/7DD3FC?text=Photo+3',
+                            'https://via.placeholder.com/800x600/111D33/7DD3FC?text=Photo+4',
+                            'https://via.placeholder.com/800x600/111D33/7DD3FC?text=Photo+5'
+                        ],
+                        shortDesc: 'Свет из глубины. Дизайнерские лампы, вдохновлённые бионическими формами глубоководных удильщиков.',
+                        fullDesc: '<p><span class="text-brand-red font-bold">Задача:</span> Разработать концепцию премиального бренда ламп-филаментов с философской идеей. Позиционировать в премиальном сегменте.</p><p class="mt-4"><span class="text-white font-bold">Философия:</span> OBSCURA (с лат. «темнота») — чем глубже мрак, тем ярче сияние. Вдохновлено глубоководными удильщиками, чьи «удочки» светятся в полной темноте океана.</p><p class="mt-4"><span class="text-brand-cyan font-bold">Что сделано:</span> Оригинальные формы ламп, премиальная упаковка с иллюстрацией удильщика, философия контраста тьмы и света. Свет как часть истории, а не только функциональность.</p>'
                     },
                     {
-                        id: 2, title: 'Кампания «Спорт-Мастер»', category: 'Marketing',
-                        color: 'text-brand-cyan', border: 'border-brand-cyan', image: '📣',
-                        shortDesc: '1000 персонализированных креативов.',
-                        fullDesc: '<p><span class="text-brand-red font-bold">Задача:</span> 1000 креативов под сегменты ЦА.</p><p class="mt-2"><span class="text-white font-bold">Смысл:</span> Спорт для каждого. Пайплайн: Python -> SDXL -> Auto-crop. Генерация заняла 2 часа.</p>',
-                        stats: { val1: 'x3', label1: 'CTR', val2: '2 ч', label2: 'Скорость', val3: '/10', label3: 'Косты' }
+                        id: 2, 
+                        title: 'Храпунцель', 
+                        category: 'Brand Ecosystem',
+                        color: 'text-brand-red', 
+                        border: 'border-brand-red', 
+                        heroImage: 'https://via.placeholder.com/1200x675/111D33/FF3B5C?text=Hrapuntsel+Hero',
+                        gallery: [
+                            'https://via.placeholder.com/800x600/111D33/FF3B5C?text=Photo+2',
+                            'https://via.placeholder.com/800x600/111D33/FF3B5C?text=Photo+3',
+                            'https://via.placeholder.com/800x600/111D33/FF3B5C?text=Photo+4',
+                            'https://via.placeholder.com/800x600/111D33/FF3B5C?text=Photo+5'
+                        ],
+                        shortDesc: 'Первый бренд сна красоты в России. Объединяем wellness, tech и beauty в одной экосистеме.',
+                        fullDesc: '<p><span class="text-brand-red font-bold">Задача:</span> Создать комплексный wellness-бренд, который переосмыслит категорию сна в России. Объединить beauty, tech и игровую механику.</p><p class="mt-4"><span class="text-white font-bold">Концепция:</span> «Сон как новый спорт и новая косметика». Территория игры + науки. Сказка о спящей красавице оживает для «неспящих красавиц» XXI века.</p><p class="mt-4"><span class="text-brand-cyan font-bold">Экосистема (3 уровня):</span><br>• <span class="text-brand-sky">Beauty Sleep Essentials</span> — БАДы, маски, шелковые наволочки<br>• <span class="text-brand-sky">SleepTech & Gadgets</span> — умные маски, приложение с геймификацией<br>• <span class="text-brand-sky">Lifestyle & Merch</span> — пижамы, подарочные боксы, мерч</p><p class="mt-4"><span class="text-brand-cyan font-bold">Продвижение:</span> Маркетплейсы (WB, Ozon), коллаборации (Аскона, косметические бренды), Золотое Яблоко, работа с бьюти-блогерами и сомнологами.</p>'
                     }
                 ],
                 openPanel(index) {
@@ -104,7 +124,6 @@
 </head>
 <body class="antialiased min-h-screen flex flex-col relative overflow-x-hidden">
   
-  <!-- Background FX -->
   <div class="fixed inset-0 z-0 pointer-events-none">
     <div class="absolute top-[-10%] right-[-5%] w-[40vw] h-[40vw] bg-brand-cyan/5 rounded-full blur-[100px]"></div>
     <div class="absolute bottom-[-10%] left-[-5%] w-[40vw] h-[40vw] bg-brand-red/5 rounded-full blur-[100px]"></div>
@@ -112,7 +131,6 @@
     <div class="bg-watermark text-white select-none glitch-quiet" data-text="ПЕРЕДВИЖНИКИ">ПЕРЕДВИЖНИКИ</div>
   </div>
 
-  <!-- Main App Container -->
   <div x-data="appData()" x-cloak @keydown.escape="activeCase = null">
 
     <!-- HEADER -->
@@ -126,7 +144,7 @@
           <a href="#process" class="hover:text-brand-cyan transition-colors">Процесс</a>
           <a href="#contact" class="hover:text-brand-cyan transition-colors">Контакты</a>
         </nav>
-        <button class="px-5 py-2 bg-brand-red/90 text-white rounded-lg text-sm font-bold hover:bg-brand-red transition-colors shadow-[0_0_10px_rgba(255,59,92,0.3)]">Обсудить проект</button>
+        <a href="#contact" class="px-5 py-2 bg-brand-red/90 text-white rounded-lg text-sm font-bold hover:bg-brand-red transition-colors shadow-[0_0_10px_rgba(255,59,92,0.3)]">Обсудить проект</a>
       </div>
     </header>
 
@@ -157,7 +175,7 @@
       </div>
     </section>
 
-    <!-- GALLERY (Horizontal Scroll) -->
+    <!-- GALLERY -->
     <section id="gallery" class="relative z-20">
       <div class="container mx-auto px-4 mb-8 flex justify-between items-end">
         <h2 class="text-2xl sm:text-3xl font-bold">Избранные кейсы</h2>
@@ -189,7 +207,7 @@
       </div>
     </section>
 
-    <!-- EXPANDABLE DETAIL PANEL -->
+    <!-- EXPANDABLE DETAIL PANEL (New Structure) -->
     <section id="detail-section" 
              x-show="activeCase !== null" 
              x-transition:enter="transition ease-out duration-300"
@@ -198,50 +216,54 @@
              x-transition:leave="transition ease-in duration-200"
              x-transition:leave-start="opacity-100"
              x-transition:leave-end="opacity-0"
-             class="relative z-30 w-full bg-[#081121] border-t border-brand-cyan/20 py-16 lg:py-24">
+             class="relative z-30 w-full bg-[#081121] border-t border-brand-cyan/20 py-12 lg:py-20">
       
       <div class="container mx-auto px-4" x-cloak>
         <template x-if="activeCase !== null">
-          <div>
-            <button @click="activeCase = null" class="text-brand-muted hover:text-white text-sm font-mono mb-8 flex items-center gap-2 transition-colors">
+          <div class="max-w-5xl mx-auto flex flex-col gap-12">
+            
+            <!-- Back Button -->
+            <button @click="activeCase = null" class="self-start text-brand-muted hover:text-white text-sm font-mono flex items-center gap-2 transition-colors">
               <span class="text-xl">←</span> Вернуться к галерее
             </button>
 
-            <div class="grid lg:grid-cols-12 gap-12 items-start">
-              <div class="lg:col-span-7 relative rounded-2xl overflow-hidden bg-brand-surface border border-brand-border group">
-                <div class="aspect-video lg:aspect-[4/3] bg-gradient-to-br from-brand-surface to-brand-bg flex items-center justify-center relative">
-                   <span class="text-[120px] opacity-20" x-text="cases[activeCase].image"></span>
-                   <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors"></div>
-                   <div class="absolute bottom-6 left-6 font-mono text-xs text-white/70">PREVIEW_MODE_2.0</div>
-                </div>
-              </div>
-
-              <div class="lg:col-span-5 flex flex-col gap-8">
-                <div>
-                  <h3 class="text-sm font-bold uppercase tracking-widest mb-2" :class="cases[activeCase].color" x-text="cases[activeCase].category"></h3>
-                  <h2 class="text-3xl lg:text-4xl font-bold mb-6" x-text="cases[activeCase].title"></h2>
-                  <div class="h-px w-full bg-gradient-to-r from-brand-border to-transparent mb-8"></div>
-                  <div class="text-brand-muted text-base leading-relaxed space-y-4" x-html="cases[activeCase].fullDesc"></div>
-                </div>
-
-                <div class="grid grid-cols-3 gap-4 bg-brand-surface/50 p-4 rounded-xl border border-brand-border/50">
-                  <div class="text-center">
-                    <div class="text-xl font-bold text-white" x-text="cases[activeCase].stats.val1"></div>
-                    <div class="text-[10px] uppercase text-brand-muted font-mono mt-1" x-text="cases[activeCase].stats.label1"></div>
-                  </div>
-                  <div class="text-center border-l border-r border-brand-border/50">
-                    <div class="text-xl font-bold text-white" x-text="cases[activeCase].stats.val2"></div>
-                    <div class="text-[10px] uppercase text-brand-muted font-mono mt-1" x-text="cases[activeCase].stats.label2"></div>
-                  </div>
-                  <div class="text-center">
-                    <div class="text-xl font-bold text-white" x-text="cases[activeCase].stats.val3"></div>
-                    <div class="text-[10px] uppercase text-brand-muted font-mono mt-1" x-text="cases[activeCase].stats.label3"></div>
-                  </div>
-                </div>
-
-                <button class="w-full py-4 bg-brand-red text-white rounded-xl font-bold hover:bg-red-600 transition-colors shadow-[0_0_15px_rgba(255,59,92,0.3)]">Хочу такой же результат</button>
-              </div>
+            <!-- 1. HERO IMAGE (Главное фото) -->
+            <div class="w-full aspect-[16/9] rounded-xl overflow-hidden relative">
+               <img :src="cases[activeCase].heroImage" 
+                    :alt="cases[activeCase].title"
+                    class="w-full h-full object-cover">
             </div>
+
+            <!-- 2. TEXT CONTENT (Текст) -->
+            <div class="space-y-6">
+              <h3 class="text-sm font-bold uppercase tracking-widest" :class="cases[activeCase].color" x-text="cases[activeCase].category"></h3>
+              <h2 class="text-3xl lg:text-5xl font-bold" x-text="cases[activeCase].title"></h2>
+              <div class="h-px w-full bg-gradient-to-r from-brand-border to-transparent"></div>
+              <div class="text-brand-muted text-lg leading-relaxed space-y-6 max-w-4xl" x-html="cases[activeCase].fullDesc"></div>
+            </div>
+
+            <!-- 3. GALLERY GRID (Остальные фото) -->
+            <div x-show="cases[activeCase].gallery && cases[activeCase].gallery.length > 0">
+                <h4 class="text-sm font-bold uppercase tracking-widest text-brand-muted mb-6">Галерея проекта</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <template x-for="(photo, index) in cases[activeCase].gallery" :key="index">
+                        <div class="aspect-[4/3] rounded-xl overflow-hidden relative group hover:scale-[1.02] transition-transform">
+                            <img :src="photo" 
+                                 :alt="cases[activeCase].title + ' - фото ' + (index + 2)"
+                                 class="w-full h-full object-cover">
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <!-- CTA Link -->
+            <div class="pt-8 border-t border-brand-border/30 mt-4">
+              <a href="#contact" class="inline-flex items-center gap-3 text-brand-cyan hover:text-white font-bold text-xl transition-colors group">
+                <span class="text-3xl group-hover:translate-x-2 transition-transform">→</span>
+                Заказать проект для вашей компании
+              </a>
+            </div>
+
           </div>
         </template>
       </div>
