@@ -188,12 +188,15 @@
                class="case-slide w-[85vw] sm:w-[70vw] lg:w-[60vw] h-[60vh] lg:h-[65vh] glass-card rounded-2xl overflow-hidden flex flex-col lg:flex-row group cursor-pointer transition-all duration-300"
                :class="activeCase === index ? 'opacity-50 scale-95 grayscale' : 'opacity-100'">
             
-            <div class="w-full lg:w-3/5 h-1/2 lg:h-full bg-gradient-to-br from-brand-surface to-brand-bg relative overflow-hidden flex items-center justify-center border-b lg:border-b-0 lg:border-r border-brand-border/30">
-              <span class="text-8xl opacity-10 group-hover:opacity-20 transition-opacity duration-700 select-none" x-text="c.image"></span>
-              <div class="absolute top-6 left-6 bg-black/60 backdrop-blur px-3 py-1 text-xs font-bold rounded border" :class="c.border + ' ' + c.color" x-text="c.category"></div>
-              <div class="absolute bottom-6 right-6 text-xs font-mono text-white/50 group-hover:text-brand-cyan transition-colors">Нажмите для деталей ↓</div>
-            </div>
-            
+            <div class="w-full lg:w-3/5 h-1/2 lg:h-full relative overflow-hidden border-b lg:border-b-0 lg:border-r border-brand-border/30">
+  <img :src="c.heroImage" 
+       :alt="c.title"
+       class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+  <div class="absolute inset-0 bg-gradient-to-br from-brand-surface/60 to-brand-bg/60 group-hover:opacity-0 transition-opacity duration-300"></div>
+  <div class="absolute top-6 left-6 bg-black/60 backdrop-blur px-3 py-1 text-xs font-bold rounded border" :class="c.border + ' ' + c.color" x-text="c.category"></div>
+  <div class="absolute bottom-6 right-6 text-xs font-mono text-white/50 group-hover:text-brand-cyan transition-colors">Нажмите для деталей ↓</div>
+</div>         
+              
             <div class="w-full lg:w-2/5 h-1/2 lg:h-full p-6 lg:p-8 flex flex-col justify-between bg-brand-bg/40">
               <div>
                 <p class="text-[10px] font-bold mb-2 uppercase tracking-widest" :class="c.color">Case Study</p>
