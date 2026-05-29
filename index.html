@@ -66,7 +66,6 @@
                         color: 'text-brand-cyan', 
                         border: 'border-brand-cyan', 
                         heroImage: 'images/luminaria-1.png',
-                        // type: 'wide' (горизонтальная) или 'tall' (вертикальная)
                         gallery: [
                             { src: 'images/luminaria-2.png', type: 'wide' },
                             { src: 'images/luminaria-3.png', type: 'tall' },
@@ -99,12 +98,10 @@
                         category: 'Brand Ecosystem',
                         color: 'text-brand-red', 
                         border: 'border-brand-red', 
-                        heroImage: 'images/Hrapuntsel-1.png',
+                        heroImage: 'images/hrapuntsel-1.png',
                         gallery: [
-                            { src: 'images/Hrapuntsel-2.png', type: 'wide' },
-                            { src: 'images/Hrapuntsel-3.png', type: 'wide' },
-                            { src: 'images/Hrapuntsel-4.png', type: 'tall' },
-                            { src: 'images/Hrapuntsel-5.png', type: 'tall' }
+                            { src: 'images/hrapuntsel-2.png', type: 'wide' },
+                            { src: 'images/hrapuntsel-3.png', type: 'wide' },
                         ],
                         shortDesc: 'Всё для сна красоты. Новая категория женского beauty wellness.',
                         fullDesc: '<p><span class="text-brand-red font-bold">Задача:</span> Создать комплексный wellness-бренд, который переосмыслит категорию сна в России. Объединить beauty, tech и игровую механику.</p><p class="mt-4"><span class="text-white font-bold">Концепция:</span> «Сон как новый спорт и новая косметика». Территория игры + науки. Сказка о спящей красавице оживает для «неспящих красавиц» XXI века.</p><p class="mt-4"><span class="text-brand-cyan font-bold">Экосистема (3 уровня):</span><br>• <span class="text-brand-sky">Beauty Sleep Essentials</span> — БАДы, маски, шелковые наволочки<br>• <span class="text-brand-sky">SleepTech & Gadgets</span> — умные маски, приложение с геймификацией<br>• <span class="text-brand-sky">Lifestyle & Merch</span> — пижамы, подарочные боксы, мерч</p><p class="mt-4"><span class="text-brand-cyan font-bold">Продвижение:</span> Маркетплейсы (WB, Ozon), коллаборации (Аскона, косметические бренды), Золотое Яблоко, работа с бьюти-блогерами и сомнологами.</p>'
@@ -306,35 +303,34 @@
               <div class="text-brand-muted text-lg leading-relaxed space-y-6 max-w-4xl" x-html="cases[activeCase].fullDesc"></div>
             </div>
 
-            <!-- 3. GALLERY GRID (Mosaic Layout) -->
+            <!-- 3. GALLERY GRID (БЕЗ ОБРЕЗКИ) -->
             <div x-show="cases[activeCase].gallery && cases[activeCase].gallery.length > 0">
                 <h4 class="text-sm font-bold uppercase tracking-widest text-brand-muted mb-6">Галерея проекта</h4>
-                <!-- Grid с плотной укладкой для вертикальных и горизонтальных фото -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <template x-for="(media, index) in cases[activeCase].gallery" :key="index">
                         <!-- 
-                           ЛОГИКА РАЗМЕРОВ:
-                           type='wide' -> Широкая картинка (на всю ширину, как в кино)
-                           type='tall' -> Высокая картинка (как экран телефона)
-                           type='square' -> Квадрат
+                           ЛОГИКА: Мы убрали жесткие рамки (aspect-...). 
+                           Теперь картинка просто растягивается на всю ширину блока (w-full) 
+                           и берет свою реальную высоту (h-auto).
+                           Для wide: занимает 2 колонки (col-span-2).
+                           Для tall: занимает 1 колонку (col-span-1).
                         -->
                         <div class="rounded-xl overflow-hidden relative group hover:scale-[1.01] transition-transform duration-300"
                              :class="{
-                                'col-span-1 md:col-span-2 aspect-video': media.type === 'wide',
-                                'col-span-1 aspect-[3/4]': media.type === 'tall',
-                                'col-span-1 aspect-square': media.type === 'square'
+                                'col-span-1 md:col-span-2': media.type === 'wide',
+                                'col-span-1': media.type === 'tall'
                              }">
                             
                             <template x-if="isVideo(media.src)">
                                 <video :src="media.src" 
                                        controls
-                                       class="w-full h-full object-cover"
+                                       class="w-full h-auto block"
                                        :alt="cases[activeCase].title + ' - видео ' + (index + 2)"></video>
                             </template>
                             <template x-if="!isVideo(media.src)">
                                 <img :src="media.src" 
                                      :alt="cases[activeCase].title + ' - фото ' + (index + 2)"
-                                     class="w-full h-full object-cover">
+                                     class="w-full h-auto block object-cover">
                             </template>
                         </div>
                     </template>
