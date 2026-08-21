@@ -518,13 +518,11 @@
 
                     <div class="text-brand-muted text-lg leading-relaxed space-y-5 max-w-4xl" x-html="active.fullDesc"></div>
 
-                    <div>
+       <div>
   <h4 class="text-sm font-bold uppercase tracking-widest text-brand-muted mb-6">Материалы кейса</h4>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div class="flex flex-col gap-6">
     <template x-for="(m, mi) in active.media" :key="mi">
-      <div x-data="{ missing: false }"
-           class="relative rounded-xl overflow-hidden bg-brand-surface/40"
-           :class="m.span === 'wide' ? 'md:col-span-2' : ''">
+      <div x-data="{ missing: false }">
 
         <!-- Заглушка: показывает имя файла -->
         <div x-show="missing" class="placeholder-box flex flex-col items-center justify-center gap-2 p-8 text-center min-h-[240px]">
@@ -541,7 +539,7 @@
         </template>
         <template x-if="isVideo(m.src)">
           <video :src="m.src" controls @error="missing = true" x-show="!missing"
-                 class="w-full h-auto block bg-black"></video>
+                 class="w-full h-auto block"></video>
         </template>
 
       </div>
