@@ -425,10 +425,10 @@
         </a>
         <nav class="hidden md:flex gap-6 text-sm font-semibold text-brand-muted tracking-wide">
           <a href="index.html#gallery" class="hover:text-brand-cyan transition-colors">Кейсы</a>
+          <a href="process.html" class="hover:text-brand-cyan transition-colors">Процесс</a>
           <a href="experience.html" class="hover:text-brand-cyan transition-colors">Опыт</a>
-          <a href="index.html#contact" class="hover:text-brand-cyan transition-colors">Контакты</a>
         </nav>
-        <a href="index.html#contact" class="px-5 py-2 bg-brand-red/90 text-white rounded-lg text-sm font-bold hover:bg-brand-red transition-colors shadow-[0_0_10px_rgba(255,59,92,0.3)]">Обсудить проект</a>
+        <a href="#contact" class="px-5 py-2 bg-brand-red/90 text-white rounded-lg text-sm font-bold hover:bg-brand-red transition-colors shadow-[0_0_10px_rgba(255,59,92,0.3)]">Контакт с нами</a>
       </div>
     </header>
 
@@ -518,37 +518,37 @@
 
                     <div class="text-brand-muted text-lg leading-relaxed space-y-5 max-w-4xl" x-html="active.fullDesc"></div>
 
-       <div>
-  <h4 class="text-sm font-bold uppercase tracking-widest text-brand-muted mb-6">Материалы кейса</h4>
-  <div class="flex flex-col gap-6">
-    <template x-for="(m, mi) in active.media" :key="mi">
-      <div x-data="{ missing: false }">
+                    <div>
+                      <h4 class="text-sm font-bold uppercase tracking-widest text-brand-muted mb-6">Материалы кейса</h4>
+                      <div class="flex flex-col gap-6">
+                        <template x-for="(m, mi) in active.media" :key="mi">
+                          <div x-data="{ missing: false }">
 
-        <!-- Заглушка: показывает имя файла -->
-        <div x-show="missing" class="placeholder-box flex flex-col items-center justify-center gap-2 p-8 text-center min-h-[240px]">
-          <span class="text-4xl opacity-60" x-text="mediaIcon(m.kind)"></span>
-          <span class="text-sm font-mono text-brand-muted" x-text="m.label"></span>
-          <span class="text-[11px] font-mono text-brand-cyan/80 break-all px-2" x-text="m.src"></span>
-          <span class="text-[10px] uppercase tracking-widest text-brand-muted/50"
-                x-text="isVideo(m.src) ? 'положи ролик с этим именем в videos/farma' : 'положи файл с этим именем в images/farma'"></span>
-        </div>
+                            <!-- Заглушка: показывает имя файла -->
+                            <div x-show="missing" class="placeholder-box flex flex-col items-center justify-center gap-2 p-8 text-center min-h-[240px]">
+                              <span class="text-4xl opacity-60" x-text="mediaIcon(m.kind)"></span>
+                              <span class="text-sm font-mono text-brand-muted" x-text="m.label"></span>
+                              <span class="text-[11px] font-mono text-brand-cyan/80 break-all px-2" x-text="m.src"></span>
+                              <span class="text-[10px] uppercase tracking-widest text-brand-muted/50"
+                                    x-text="isVideo(m.src) ? 'положи ролик с этим именем в videos/farma' : 'положи файл с этим именем в images/farma'"></span>
+                            </div>
 
-        <template x-if="!isVideo(m.src)">
-          <img :src="m.src" :alt="m.label" @error="missing = true" x-show="!missing"
-               class="w-full h-auto block">
-        </template>
-        <template x-if="isVideo(m.src)">
-          <video :src="m.src" controls @error="missing = true" x-show="!missing"
-                 class="w-full h-auto block"></video>
-        </template>
+                            <template x-if="!isVideo(m.src)">
+                              <img :src="m.src" :alt="m.label" @error="missing = true" x-show="!missing"
+                                   class="w-full h-auto block">
+                            </template>
+                            <template x-if="isVideo(m.src)">
+                              <video :src="m.src" controls @error="missing = true" x-show="!missing"
+                                     class="w-full h-auto block"></video>
+                            </template>
 
-      </div>
-    </template>
-  </div>
-</div>
+                          </div>
+                        </template>
+                      </div>
+                    </div>
 
                     <div class="pt-6 border-t border-brand-border/30">
-                      <a href="index.html#contact" class="inline-flex items-center gap-3 text-brand-cyan hover:text-white font-bold text-xl transition-colors group">
+                      <a href="#contact" class="inline-flex items-center gap-3 text-brand-cyan hover:text-white font-bold text-xl transition-colors group">
                         <span class="text-3xl group-hover:translate-x-2 transition-transform">→</span>
                         Обсудить похожий проект
                       </a>
@@ -565,8 +565,54 @@
       </div>
     </section>
 
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="relative z-20 py-20 lg:py-32">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl sm:text-5xl font-black mb-4">
+            <span class="glitch-hero" data-text="Контакт с нами">Контакт с нами</span>
+          </h2>
+          <div class="h-1 w-24 bg-brand-cyan mx-auto rounded-full"></div>
+        </div>
+
+        <div class="max-w-3xl mx-auto glass-card rounded-2xl p-8 lg:p-12">
+          <div class="space-y-8 text-center">
+            <!-- Телефоны -->
+            <div>
+              <h3 class="text-sm font-bold uppercase tracking-widest text-brand-muted mb-4">Телефоны</h3>
+              <div class="space-y-3">
+                <a href="tel:+79150257718" class="block text-2xl lg:text-3xl font-bold text-white hover:text-brand-cyan transition-colors">
+                  8 915 025 77 18
+                </a>
+                <a href="tel:+79035601635" class="block text-2xl lg:text-3xl font-bold text-white hover:text-brand-cyan transition-colors">
+                  8 903 560 16 35
+                </a>
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div>
+              <h3 class="text-sm font-bold uppercase tracking-widest text-brand-muted mb-4">Email</h3>
+              <a href="mailto:info@pdvz02.ru" class="block text-xl lg:text-2xl font-bold text-brand-cyan hover:text-white transition-colors">
+                info@pdvz02.ru
+              </a>
+            </div>
+
+            <!-- CTA -->
+            <div class="pt-6 border-t border-brand-border/30">
+              <p class="text-brand-muted text-center mb-6">Напишите нам или позвоните — обсудим ваш проект</p>
+              <a href="mailto:info@pdvz02.ru" class="inline-flex items-center gap-3 px-8 py-4 bg-brand-red/90 text-white rounded-xl font-bold hover:bg-brand-red transition-colors shadow-[0_0_20px_rgba(255,59,92,0.3)]">
+                <span>Написать письмо</span>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- FOOTER -->
-    <footer class="border-t border-brand-border/30 py-8 text-center text-brand-muted text-xs mt-auto relative z-20">
+    <footer class="border-t border-brand-border/30 py-8 text-center text-brand-muted text-xs relative z-20">
       <div class="container mx-auto px-4">
         <p class="mb-2">&copy; 2026 Передвижники 2.0. Human + AI Agency.</p>
         <p class="opacity-50">Кейсы: Фарма · 21 кейс.</p>
