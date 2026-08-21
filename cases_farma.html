@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кейсы Фарма | Передвижники 2.0</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        [x-cloak] { display: none !important; }
+        body { font-family: 'Manrope', sans-serif; background-color: #0A1428; color: #F4F6F9; }
+
+        .glitch-quiet { position: relative; display: inline-block; color: #8B9BB4; font-weight: 800; transition: color 0.3s; }
+        .glitch-quiet:hover { color: #F4F6F9; }
+        .glitch-quiet::before, .glitch-quiet::after {
+            content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.4; pointer-events: none;
+        }
+        .glitch-quiet::before { left: 1.5px; text-shadow: -1.5px 0 #FF3B5C; animation: drift-1 5s infinite linear alternate-reverse; }
+        .glitch-quiet::after { left: -1.5px; text-shadow: -1.5px 0 #00E5FF; animation: drift-2 6s infinite linear alternate-reverse; }
+        @keyframes drift-1 { 0%{clip-path:inset(15% 0 85% 0)} 50%{clip-path:inset(75% 0 5% 0)} 100%{clip-path:inset(35% 0 45% 0)} }
+        @keyframes drift-2 { 0%{clip-path:inset(85% 0 5% 0)} 50%{clip-path:inset(25% 0 65% 0)} 100%{clip-path:inset(65% 0 15% 0)} }
+
+        .glitch-hero { position: relative; display: inline-block; color: white; font-weight: 900; }
+        .glitch-hero::before, .glitch-hero::after {
+            content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.8;
+        }
+        .glitch-hero::before { left: 2px; text-shadow: -2px 0 #FF3B5C; animation: drift-1 2.5s infinite linear alternate-reverse; }
+        .glitch-hero::after { left: -2px; text-shadow: -2px 0 #00E5FF; animation: drift-2 3s infinite linear alternate-reverse; }
+
+        .glass-card { background: rgba(17, 29, 51, 0.5); backdrop-filter: blur(16px); border: 1px solid rgba(26, 43, 69, 0.6); transition: all 0.4s ease; }
+        .glass-card:hover { border-color: #00E5FF; box-shadow: 0 0 30px rgba(0, 229, 255, 0.1); transform: translateY(-4px); }
+
+        .scanlines { background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.12) 50%, rgba(0,0,0,0.12)); background-size: 100% 4px; pointer-events: none; }
+        .bg-watermark { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 25vw; font-weight: 900; opacity: 0.03; pointer-events: none; white-space: nowrap; z-index: 0; }
+
+        .placeholder-box { border: 2px dashed rgba(26, 43, 69, 0.9); background: rgba(17, 29, 51, 0.4); }
+    </style>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { bg: '#0A1428', surface: '#111D33', border: '#1A2B45', cyan: '#00E5FF', red: '#FF3B5C', sky: '#7DD3FC', text: '#F4F6F9', muted: '#8B9BB4' }
+                    },
+                    fontFamily: { sans: ['Manrope', 'sans-serif'] }
+                }
+            }
+        }
+
+        function farmaData() {
+            return {
+                activeCase: null,
+                filter: 'all',
+                cols: 3,
+
+                tags: {
+                    launch: 'Запуск',
+                    strategy: 'Стратегия / репозиционирование',
+                    creative: 'Креативная кампания',
+                    rx: 'Rx / проф'
+                },
+
+                cases: [
+                    {
+                        slug: 'venarus', title: 'Венарус', client: 'Оболонское → Allium / Биннофарм Групп',
+                        category: 'Комплексная стратегия · 360', color: 'text-brand-cyan', tags: ['strategy', 'creative'],
+                        shortDesc: 'Российский лидер венотоников: вытеснили французский Детралекс с пьедестала через смелую стратегию и образ-антагонист.',
+                        keyMessage: 'Вены в норме — ноги в форме',
+                        fullDesc: `<p><span class="text-brand-red font-bold">Задача:</span> создать сильный российский бренд в категории венотоников и вытеснить с пьедестала привычного лидера — французский Детралекс.</p><p class="mt-4"><span class="text-white font-bold">Решение:</span> вместо скучных медицинских штампов — яркий образ, эмоциональное послание и агрессивная стратегия. Мы персонализировали проблему: варикоз больше не абстракция — теперь это девушка-антагонист Вена: мягкая, извивающаяся, с венозной текстурой. Она в прямом смысле «садится» на ноги, нарушает жизнь и боится только одного — Венаруса.</p><p class="mt-4"><span class="text-brand-cyan font-bold">Что сделано:</span> глубинные потребительские инсайты, смелое позиционирование, образ-антагонист и кампания 360: ТВ, OOH, digital. Формула успеха: «Пока другие лечат симптомы, Венарус борется с самим варикозом».</p>`,
+                        media: [
+                            { kind: 'video', span: 'wide', src: 'videos/farma/venarus-roll.mp4', label: 'Ролик: «Не уступай варикозу — Венарус»' },
+                            { kind: 'kv', span: 'wide', src: 'images/farma/venarus-kv-1.jpg', label: 'KV: девушка-антагонист Вена' },
+                            { kind: 'ooh', span: 'tall', src: 'images/farma/venarus-ooh-1.jpg', label: 'OOH: «Вены в норме — ноги в форме»' },
+                            { kind: 'pack', span: 'tall', src: 'images/farma/venarus-pack-1.jpg', label: 'Упаковка: линейка 500 и 1000 мг' }
+                        ]
+                    },
+                    {
+                        slug: 'neobutin', title: 'Необутин', client: 'Оболонское → Allium / Биннофарм Групп',
+                        category: 'Запуск нового бренда', color: 'text-brand-sky', tags: ['launch', 'creative'],
+                        shortDesc: 'Универсальный жест «болит где-то тут» вывел бренд в лидеры категории препаратов от боли в животе.',
+                        keyMessage: 'Когда болит где-то тут — попробуйте Необутин',
+                        fullDesc: `<p><span class="text-brand-red font-bold">Задача:</span> категория препаратов от боли в животе была перегружена узкими медицинскими обещаниями и симптомными нишами. Нужно было ответить на массовый запрос «болит где-то тут» — размытый, мигрирующий дискомфорт без чёткого диагноза — и при этом создать сильную дифференциацию и масштабируемую позицию бренда.</p><p class="mt-4"><span class="text-white font-bold">Решение:</span> коммуникацию построили вокруг универсального человеческого жеста — указания на живот без точной локализации боли. В кадре — разные люди, разного возраста и образа жизни, которые показывают на «где-то тут». Затем появляется герой бренда — специалист, который закрепляет этот жест как мнемоник и даёт простое решение: Необутин, препарат, действующий избирательно внутри живота.</p><p class="mt-4"><span class="text-brand-cyan font-bold">Результат:</span> коммуникация позволила уйти от узкой симптомной ниши и расширить восприятие препарата: универсальный ответ на дискомфорт в животе, а не решение «под один диагноз». Рост знания, расширение сценариев применения — и выход в лидерство в категории.</p>`,
+                        media: [
+                            { kind: 'video', span: 'wide', src: 'videos/farma/neobutin-roll.mp4', label: 'Ролик: жест «где-то тут»' },
+                            { kind: 'kv', span: 'wide', src: 'images/farma/neobutin-kv-1.jpg', label: 'KV: герой-специалист бренда' },
+                            { kind: 'banner', span: 'tall', src: 'images/farma/neobutin-banner-1.jpg', label: 'Баннер: «Когда болит где-то тут»' }
+                        ]
+                    },
+                    {
+                        slug: 'dexonal', title: 'Дексонал', client: 'Оболонское → Allium / Биннофарм Групп',
+                        category: 'Запуск · острая боль', color: 'text-brand-red', tags: ['launch', 'creative'],
+                        shortDesc: 'Метафора «лезть на стену от боли» буквально: яркий запуск, быстрое лидерство в категории.',
+                        keyMessage: 'Дексонал. Заряжен против острой боли!',
+                        fullDesc: `<p><span class="text-brand-red font-bold">Задача:</span> вывести на рынок препарат от острой боли и быстро занять лидерскую позицию в конкурентной категории. Мгновенно заявить о силе препарата, сделать его заметным на полке.</p><p class="mt-4"><span class="text-white font-bold">Решение:</span> работали в двух направлениях. Образ героя: большая, мощная красная упаковка стала визуальным якорем — цветом, масштабом и графикой бренд «кричит» с полки и заявляет доминирование в категории. Образ врага: народное выражение «лезть на стену от боли» использовали буквально — люди разных профессий физически «лезут на стену» от острой боли, и Дексонал возвращает их в нормальную жизнь.</p><p class="mt-4"><span class="text-brand-cyan font-bold">Результат:</span> мгновенное понимание, что такое острая боль и чем её лечить; яркая дифференциация; быстрое лидерство и рост продаж; статус «сильного решения».</p>`,
+                        media: [
+                            { kind: 'video', span: 'wide', src: 'videos/farma/dexonal-roll.mp4', label: 'Ролик: «Заряжен против острой боли»' },
+                            { kind: 'kv', span: 'wide', src: 'images/farma/dexonal-kv-1.jpg', label: 'KV: «лезут на стену» от боли' },
+                            { kind: 'pack', span: 'tall', src: 'images/farma/dexonal-pack-1.jpg', label: 'Упаковка: красный визуальный якорь' }
+                        ]
+                    },
+                    {
+                        slug: 'elmucin', title: 'Эльмуцин', client: 'Оболонское → Allium / Биннофарм Групп',
+                        category: 'Репозиционирование · упаковка', color: 'text-brand-cyan', tags: ['strategy'],
+                        shortDesc: 'Отстроили бренд от «старой школы» средств от кашля: инновация XXI века.',
+                        keyMessage: 'Эльмуцин. Инновация от кашля в XXI веке',
+                        fullDesc: `<p><span class="text-brand-red font-bold">Задача:</span> репозиционирование и чёткое разведение внутри портфеля (пара Дексонал / Эльмуцин). Уйти от восприятия «ещё одно средство от кашля».</p><p class="mt-4"><span class="text-white font-bold">Решение:</span> коммуникацию построили на контрасте поколений: «Старые средства от кашля — пусть остаются в прошлом! Эльмуцин — инновация от кашля в XXI веке». Упаковка и KV закрепляют образ современного препарата тройного действия: выведению мокроты, снятию воспаления, поддержке лёгочного иммунитета.</p><p class="mt-4"><span class="text-brand-cyan font-bold">Что сделано:</span> концепция позиционирования, коммуникационно-креативная концепция, концепция ролика, редизайн упаковки.</p>`,
+                        media: [
+                            { kind: 'video', span: 'wide', src: 'videos/farma/elmucin-roll.mp4', label: 'Ролик: концепция' },
+                            { kind: 'pack', span: 'tall', src: 'images/farma/elmucin-pack-1.jpg', label: 'Упаковка: «Инновация XXI века»' },
+                            { kind: 'pack', span: 'tall', src: 'images/farma/elmucin-pack-2.jpg', label: 'Упаковка: «Старое — в прошлое»' },
+                            { kind: 'kv', span: 'wide', src: 'images/farma/elmucin-kv-1.jpg', label: 'KV: контраст поколений' }
+                        ]
+                    },
+                    {
+                        slug: 'ksilen', title: 'Ксилен', client: 'Верофарм',
+                        category: 'Репозиционирование · ребрендинг', color: 'text-brand-sky', tags: ['strategy', 'creative'],
+                        shortDesc: 'Из «ещё одного средства от насморка» — в бренд с мемной фразой и своей знаменитостью: Еленой Воробей.',
+                        keyMessage: 'Теперь Ксилен!',
+                        fullDesc: `<p><span class="text-brand-red font-bold">Задача:</span> полностью переосмыслить бренд Ксилен в перегретой категории средств от насморка: уйти от обезличенности, создать чёткую позицию, заложить основу долгосрочной коммуникации и подготовить бренд к масштабному релончу.</p><p class="mt-4"><span class="text-white font-bold">Решение:</span> полное репозиционирование: новая продуктовая логика, расширенный портфель средств, ребрендинг — логотип, фирменный стиль, редизайн упаковки. Ксилен перестал быть «ещё одним средством» и стал препаратом простого и жёсткого выбора: «Ксилен — если насморк вам надоел!»</p><p class="mt-4"><span class="text-white font-bold">Елена Воробей:</span> придумали разговорную, бытовую, мемную конструкцию: мужчина с заложенным носом произносит: «Еее...», а Елена Воробей уверенно и позитивно отвечает: «Ксилен!» Фраза стала мемом, бренд вошёл в живую речь и стал «ответом по умолчанию» при насморке.</p><p class="mt-4"><span class="text-brand-cyan font-bold">Ксилен Нео:</span> запуск более продвинутой формы — отдельная, визуально и интонационно более дерзкая история «Ксилен. Матрица»: гелевая форма дольше удерживается на слизистой и по-новому останавливает насморк. Елена Воробей в роли Нео — символа нового уровня контроля.</p>`,
+                        media: [
+                            { kind: 'video', span: 'wide', src: 'videos/farma/ksilen-roll.mp4', label: 'Ролик: «Еее...» — «Ксилен!» с Еленой Воробей' },
+                            { kind: 'kv', span: 'wide', src: 'images/farma/ksilen-kv-1.jpg', label: 'KV: «Ксилен — если насморк вам надоел!»' },
+                            { kind: 'kv', span: 'wide', src: 'images/farma/ksilen-kv-2.jpg', label: 'KV: Ксилен Нео · «Матрица»' },
+                            { kind: 'pack', span: 'tall', src: 'images/farma/ksilen-pack-1.jpg', label: 'Упаковка после ребрендинга' }
+                        ]
+                    },
+                    {
+                        slug: 'salipod', title: 'Салипод', client: 'Верофарм',
+                        category: 'Омоложение бренда', color: 'text-brand-red', tags: ['creative'],
+                        shortDesc: '«Современные сказки для современных принцесс»: fashion-метафора без смены упаковки.',
+                        keyMessage: 'Принцессе «на натоптыше» помогает Салипод',
+                        fullDesc: `<p><span class="text-brand-red font-bold">Задача:</span> увеличить ценность бренда в глазах потребителя и заложить основу для роста цены — без смены упаковки. Омолодить восприятие и вывести продукт из привычной «аптечно-возрастной» коммуникации.</p><p class="mt-4"><span class="text-white font-bold">Решение:</span> обратились к архетипу, знакомому всем с детства, — сказке про принцессу на горошине. Сегодняшняя «горошина» — это натоптыш, который может испортить весь день. И fashion-метафора: даже принцессе на каблуках может понадобиться Салипод. Вместо медицинской сухости — лёгкий, женственный и запоминающийся образ. Салипод берёт на себя роль спасителя: деликатно, точно, эффективно.</p><p class="mt-4"><span class="text-brand-cyan font-bold">Что сделано:</span> рекламная идея, ролик, key visual, нестандартные POSM-материалы, аптечные дисплеи, промо-носители, визуальная система кампании.</p><p class="mt-4"><span class="text-brand-cyan font-bold">Результат:</span> бренд получил более молодой, эмоциональный и заметный образ, расширив аудиторию за счёт женщин, для которых натоптыши — не про возраст, а про активную жизнь, красоту и обувь на каблуках.</p>`,
+                        media: [
+                            { kind: 'video', span: 'wide', src: 'videos/farma/salipod-roll.mp4', label: 'Ролик: современная сказка' },
+                            { kind: 'kv', span: 'wide', src: 'images/farma/salipod-kv-1.jpg', label: 'KV: принцесса «на натоптыше»' },
+                            { kind: 'posm', span: 'tall', src: 'images/farma/salipod-posm-1.jpg', label: 'POSM: аптечные дисплеи' }
+                        ]
+                    },
+                    {
+                        slug: 'angiorus', title: 'Ангиорус', client: 'Верофарм',
+                        category: 'Креативная концепция', color: 'text-brand-cyan', tags: ['creative'],
+                        shortDesc: 'Коммуникационно-креативная концепция и концепция ролика для портфеля Верофарм.',
+                        keyMessage: '',
+                        fullDesc: `<p><span class="text-brand-red font-bold">Задача:</span> разработать коммуникационно-креативную концепцию и концепцию ролика для бренда Ангиорус в рамках стратегического партнёрства с Верофарм.</p><p class="mt-4"><span class="text-brand-cyan font-bold">Что сделано:</span> коммуникационно-креативная концепция и концепция ролика — часть системной работы с портфелем брендов Верофарм.</p>`,
+                        media: [
+                            { kind: 'video', span: 'wide', src: 'videos/farma/angiorus-roll.mp4', label: 'Ролик: концепция' },
+                            { kind: 'kv', span: 'wide', src: 'images/farma/angiorus-kv-1.jpg', label: 'KV: ключевой визуал' }
+                        ]
+                    },
+                    {
+                        slug: 'zvezdochka', title: 'Звёздочка', client: '',
+                        category: 'Обновление легенды', color: 'text-brand-sky', tags: ['creative'],
+                        shortDesc: 'Ностальгия + уверенность: «Болеть — не традиция!» Бренд с 50-летней историей говорит с родителями 90-х.',
+                        keyMessage: 'История продолжается. Моя Звёздочка',
+                        fullDesc: `<p><span class="text-brand-red font-bold">Задача:</span> актуализировать легендарный бальзам Звёздочка для аудитории родителей, выросших в 90-е. Связать детские воспоминания с сегодняшним родительским опытом и передать традицию заботы следующему поколению.</p><p class="mt-4"><span class="text-white font-bold">Решение:</span> ролик обращается к родителям, для которых Звёздочка была частью детства, а теперь стала частью их родительского опыта. Показываем не симптом, а ощущение уверенности: вчера она помогала нам, сегодня — нашим детям. Коммуникация не о болезни — о семейной традиции заботы и здоровья.</p><p class="mt-4"><span class="text-brand-cyan font-bold">Результат:</span> эмоциональный резонанс с аудиторией 30–45 лет, укрепление позиции «семейного помощника» с историей, уникальная территория в категории простудных средств. Формула: ностальгия + уверенность = доверие.</p>`,
+                        media: [
+                            { kind: 'video', span: 'wide', src: 'videos/farma/zvezdochka-roll.mp4', label: 'Ролик: «Болеть — не традиция!»' },
+                            { kind: 'kv', span: 'wide', src: 'images/farma/zvezdochka-kv-1.jpg', label: 'KV: «История продолжается»' }
+                        ]
+                    },
+                    {
+                        slug: 'fenkarol', title: 'Фенкарол', client: '',
+                        category: 'Детская категория · релонч', color: 'text-brand-red', tags: ['strategy', 'creative'],
+                        shortDesc: 'Розовый Смурфик как символ аллергии и считалочка, которая прибивает бренд к голове.',
+                        keyMessage: 'Раз-два — Фенкарол берёт за руку. Три-четыре — Фенкарол от аллергии',
+                        fullDesc: `<p><span class="text-brand-red font-bold">Задача:</span> объяснить детям и родителям, что такое аллергия, — доступно и без страха. Вывести Фенкарол в детскую категорию через эмоциональный, игровой формат с узнаваемым персонажем.</p><p class="mt-4"><span class="text-white font-bold">Решение:</span> спецпроект со Смурфиками: с согласия правообладателей мы изменили цвет персонажа на розовый — символ аллергии. Розовый Смурфик помогает ребёнку увидеть аллергию, распознать её и научиться с ней справляться. Обучение через игру, а не через сухие термины. Лицензионное партнёрство подтверждает: всё официально.</p><p class="mt-4"><span class="text-white font-bold">Репозиционирование после релонча:</span> упаковка стала главным героем коммуникации — всегда в кадре и «спасает» от аллергии здесь и сейчас. Приём считалочки усилил повтор бренда: «Раз-два — Фенкарол берёт за руку. Три-четыре — Фенкарол от аллергии. Девять-десять — Фенкарол, аллергия нас не весит!»</p><p class="mt-4"><span class="text-brand-cyan font-bold">Результат:</span> мгновенная узнаваемость (Смурфики любимы детьми и родителями), позитивный формат снизил тревогу вокруг темы, бренд занял территорию «детской» противоаллергенной категории.</p>`,
+                        media: [
+                            { kind: 'video', span: 'wide', src: 'videos/farma/fenkarol-roll.mp4', label: 'Ролик: считалочка Фенкарол' },
+                            { kind: 'kv', span: 'wide', src: 'images/farma/fenkarol-kv-1.jpg', label: 'KV: розовый Смурфик' },
+                            { kind: 'banner', span: 'tall', src: 'images/farma/fenkarol-banner-1.jpg', label: 'Баннер: упаковка-герой' }
+                        ]
+                    },
+                    {
+                        slug: 'valtrex', title: 'Валтрекс', client: 'GlaxoSmithKline',
+                        category: 'Rx-кампания для врачей', color: 'text-brand-cyan', tags: ['rx'],
+                        shortDesc: 'Интеллектуальные метафоры для профи: бокалы, губы, пузырьки — без прямой демонстрации симптомов.',
+                        keyMessage: 'Валтрекс. Когда пузырьки — не повод для радости',
+                        fullDesc: `<p><span class="text-brand-red font-bold">Задача:</span> нестандартно, тонко и интеллектуально донести до врачебной аудитории суть препарата Валтрекс от GlaxoSmithKline и зоны его применения. Коммуникация с профессионалами требовала решения без прямой демонстрации симптомов, но с максимальной клинической точностью и уважением к аудитории.</p><p class="mt-4"><span class="text-white font-bold">Решение:</span> создали галерею знаковых образов, понятных врачу с первого взгляда: бокалы — метафора гендера и зон применения, губы — ассоциация с лабиальным герпесом, пузырьки — визуальный символ герпетических высыпаний. Ироничный и эстетичный визуальный язык позволил выделить Валтрекс в категории и подчеркнуть статус препарата от глобальной фармацевтической компании.</p><p class="mt-4"><span class="text-brand-cyan font-bold">Результат:</span> быстрое и точное считывание показаний, высокая запоминаемость в профессиональной среде, коммуникация, говорящая с врачом на равных. Формула: глобальная экспертиза GSK + интеллектуальная метафора + клиническая точность.</p>`,
+                        media: [
+                            { kind: 'video', span: 'wide', src: 'videos/farma/valtrex-roll.mp4', label: 'Ролик для проф. аудитории' },
+                            { kind: 'kv', span: 'wide', src: 'images/farma/valtrex-kv-1.jpg', label: 'KV: «Когда пузырьки — не повод для радости»' },
+                            { kind: 'kv', span: 'tall', src: 'images/farma/valtrex-kv-2.jpg', label: 'KV: бокалы — метафора зон' },
+                            { kind: 'kv', span: 'tall', src: 'images/farma/valtrex-kv-3.jpg', label: 'KV: губы / пузырьки' }
+                        ]
+                    },
+                    {
+                        slug: 'betadine', title: 'Бетадин', client: 'EGIS',
+                        category: 'Деликатная коммуникация', color: 'text-brand-sky', tags: ['creative'],
+                        shortDesc: 'Деликатное «было/стало» через символичный силуэт: доверие и медицинская точность.',
+                        keyMessage: 'Бетадин — ваш ответ на вагиноз',
+                        fullDesc: `<p><span class="text-brand-red font-bold">Задача:</span> создать деликатную, тактичную и при этом предельно понятную коммуникацию для категории, где нельзя быть ни слишком прямолинейным, ни абстрактным. Нужно было ясно показать связь проблемы и решения, сохранив доверие и медицинскую корректность.</p><p class="mt-4"><span class="text-white font-bold">Решение:</span> использовали классический приём «было/стало», но реализовали его через символичный визуальный образ: женский силуэт стал метафорой состояния микрофлоры — «было» (дискомфорт, проблема) и «стало» (комфорт, чистота). За счёт минимализма, цвета и метафоры визуал получился одновременно деликатным, современным и медицински точным. Решение реализовано в ключевом визуале и серии баннеров, последовательно раскрывающих состав и логику действия препарата.</p><p class="mt-4"><span class="text-brand-cyan font-bold">Результат:</span> чёткое и быстрое считывание проблемы и решения; высокий уровень доверия за счёт корректной подачи; дифференциация в категории за счёт визуального языка; универсальная система, масштабируемая в KV и digital.</p>`,
+                        media: [
+                            { kind: 'video', span: 'wide', src: 'videos/farma/betadine-roll.mp4', label: 'Ролик: деликатная история' },
+                            { kind: 'kv', span: 'wide', src: 'images/farma/betadine-kv-1.jpg', label: 'KV: символичный силуэт «было/стало»' },
+                            { kind: 'banner', span: 'tall', src: 'images/farma/betadine-banner-1.jpg', label: 'Баннер: состав и логика действия' }
+                        ]
+                    },
+                    {
+                        slug: 'rinatrips', title: 'Ринатрипс', client: '',
+                        category: 'Rx · постер-кампания', color: 'text-brand-red', tags: ['rx', 'creative'],
+                        shortDesc: 'Слоган как визуальный инструмент: глаголы «видеть, дышать, чувствовать» — строго на своих зонах.',
+                        keyMessage: 'Видеть, дышать и чувствовать при аллергическом рините',
+                        fullDesc: `<p><span class="text-brand-red font-bold">Задача:</span> для рецептурного препарата от аллергического ринита нужно было создать ясную, врачебно точную и визуально сильную коммуникацию в статичном формате. Важно было донести комплексное действие и сделать это без опоры на упаковку — только через айдентику и логотип бренда.</p><p class="mt-4"><span class="text-white font-bold">Решение:</span> пошли в плакатное мышление и превратили ключевой слоган бренда в листер. Глаголы «видеть», «дышать», «чувствовать» были размещены прямо на лицах пациентов — строго в зонах, за которые они отвечают: «видеть» — на уровне глаз, «дышать» — на уровне носа, «чувствовать» — на уровне рта и горла.</p><p class="mt-4"><span class="text-brand-cyan font-bold">Результат:</span> коммуникация стала легко считываемой с первого взгляда и не требовала дополнительных объяснений. Даже без упаковки препарат узнавался за счёт визуального кода бренда и чёткого смыслового якоря. Для врачей это выглядело как точный, рациональный и современный аргумент в пользу комплексного решения.</p>`,
+                        media: [
+                            { kind: 'video', span: 'wide', src: 'videos/farma/rinatrips-roll.mp4', label: 'Ролик: слоган на лицах' },
+                            { kind: 'kv', span: 'wide', src: 'images/farma/rinatrips-kv-1.jpg', label: 'KV: «видеть / дышать / чувствовать»' },
+                            { kind: 'kv', span: 'tall', src: 'images/farma/rinatrips-kv-2.jpg', label: 'KV: анатомическая логика слогана' }
+                        ]
+                    },
+                    {
+                        slug: 'alfasox', title: 'Альфазокс', client: '',
+                        category: 'Креативная платформа', color: 'text-brand-cyan', tags: ['creative'],
+                        shortDesc: 'Вирусный термин «ИзЖОГАВЛЮ» и пародия на заставку «Санта-Барбары».',
+                        keyMessage: 'От изжоги — ИзЖОГАВЛЮ',
+                        fullDesc: `<p><span class="text-brand-red font-bold">Задача:</span> повысить знание о продукте через новый креатив и объяснить, что причина частой изжоги кроется в повреждённых стенках пищевода, а привычные средства не спасают от проблемы, а только гасят симптом.</p><p class="mt-4"><span class="text-white font-bold">Решение:</span> ушли от клише «тушим пожар в желудке» и ассоциировали дискомфорт с надоедливым и бесконечным сериалом: выбрали старую добрую узнаваемую заставку самого длинного в мире сериала «Санта-Барбара» и погрузили в её сюжетную арку нашу героиню. Ещё никто так запорно не делал ранее про изжогу! А также появился свой вирусный термин — «ИзЖОГАВЛЮ».</p><p class="mt-4"><span class="text-brand-cyan font-bold">Что сделано:</span> новая креативная коммуникация (слоган, позиционирование), ролик ТВ/онлайн, KV, сайт, баннерная кампания, лендинг со сторителлингом в стиле анонса сериала («Серия 1: ИзЖОГАВЛЮ...»).</p><p class="mt-4"><span class="text-brand-cyan font-bold">Результат:</span> уникальный запоминающийся термин проблемы, застолбили территорию частой изжоги и отстроились от конкурентов. За период РК знание о продукте выросло на 1 пункт.</p>`,
+                        media: [
+                            { kind: 'video', span: 'wide', src: 'videos/farma/alfasox-roll.mp4', label: 'Ролик: пародия на «Санта-Барбару»' },
+                            { kind: 'kv', span: 'wide', src: 'images/farma/alfasox-kv-1.jpg', label: 'KV: «ИзЖОГАВЛЮ»' },
+                            { kind: 'banner', span: 'tall', src: 'images/farma/alfasox-banner-1.jpg', label: 'Тизер: «Серия 24: изжога»' }
+                        ]
+                    },
+                    {
+                        slug: 'estrovel', title: 'Эстровэл', client: 'Allium / Биннофарм Групп',
+                        category: 'Коммуникация · ролик', color: 'text-brand-sky', tags: ['creative'],
+                        shortDesc: 'Комплексная забота в период возрастных изменений: деликатная коммуникация и ролик.',
+                        keyMessage: 'Красота — в моей природе',
+                        fullDesc: `<p><span class="text-brand-red font-bold">Задача:</span> коммуникационно-креативное решение, ролик и макеты для бренда Эстровэл.</p><p class="mt-4"><span class="text-white font-bold">Решение:</span> построили коммуникацию вокруг идеи «комплексная забота в период возрастных изменений»: деликатная интонация, образ женщины в гармонии с собой и природой, продуктовые преимущества поданы через заботу и красоту «в моей природе», а не через сухие медицинские списки.</p><p class="mt-4"><span class="text-brand-cyan font-bold">Что сделано:</span> коммуникационно-креативное решение, ролик, макеты.</p>`,
+                        media: [
+                            { kind: 'video', span: 'wide', src: 'videos/farma/estrovel-roll.mp4', label: 'Ролик: комплексная забота' },
+                            { kind: 'kv', span: 'wide', src: 'images/farma/estrovel-kv-1.jpg', label: 'KV: «Красота — в моей природе»' }
+                        ]
+                    },
+                    {
+                        slug: 'triazavirin', title: 'Триазавирин', client: '',
+                        category: 'Позиционирование · креатив', color: 'text-brand-red', tags: ['strategy', 'creative'],
+                        shortDesc: 'Позиционирование и креатив вокруг прямого действия на вирусы (in-house команда).',
+                        keyMessage: 'Прямое действие на вирусы',
+                        fullDesc: `<p><span class="text-brand-red font-bold">Задача:</span> позиционирование и коммуникационно-креативное решение для противовирусного препарата (работа in-house команды).</p><p class="mt-4"><span class="text-white font-bold">Решение:</span> ядро платформы — прямое действие на вирусы: «Триазавирин останавливает размножение вирусов», «Прямое действие на вирусы — прямая забота». Честная медицинская тональность, понятная продуктовая логика при гриппе и ОРВИ, KV и макеты, закрепляющие статус препарата с прямым механизмом действия.</p><p class="mt-4"><span class="text-brand-cyan font-bold">Что сделано:</span> позиционирование, коммуникационно-креативное решение, ролик, макеты.</p>`,
+                        media: [
+                            { kind: 'video', span: 'wide', src: 'videos/farma/triazavirin-roll.mp4', label: 'Ролик: прямое действие на вирусы' },
+                            { kind: 'kv', span: 'wide', src: 'images/farma/triazavirin-kv-1.jpg', label: 'KV: «останавливает размножение вирусов»' },
+                            { kind: 'pack', span: 'tall', src: 'images/farma/triazavirin-pack-1.jpg', label: 'Упаковка: противовирусное средство' }
+                        ]
+                    },
+                    {
+                        slug: 'galavit', title: 'Галавит', client: '',
+                        category: 'Коммуникация · KV', color: 'text-brand-cyan', tags: ['creative'],
+                        shortDesc: '«Главное — жизнь, а не простуда»: вывели бренд из категории «ещё одно средство от простуды».',
+                        keyMessage: 'Главное — жизнь, а не простуда',
+                        fullDesc: `<p><span class="text-brand-red font-bold">Задача:</span> коммуникационно-креативные решения, ролик и макеты для бренда Галавит.</p><p class="mt-4"><span class="text-white font-bold">Решение:</span> вывели бренд из категории «ещё одно средство от простуды» с посланием «Главное — жизнь, а не простуда». Препарат борется как с вирусами, так и с бактериями, действует на воспаление и применим на любой день болезни. KV и макеты строят образ надёжного сезонного решения: «В сезон простуд — Галавит!»</p>`,
+                        media: [
+                            { kind: 'video', span: 'wide', src: 'videos/farma/galavit-roll.mp4', label: 'Ролик: «Главное — жизнь»' },
+                            { kind: 'kv', span: 'wide', src: 'images/farma/galavit-kv-1.jpg', label: 'KV: «В сезон простуд — Галавит!»' },
+                            { kind: 'pack', span: 'tall', src: 'images/farma/galavit-pack-1.jpg', label: 'Упаковка: таблетки подъязычные' }
+                        ]
+                    },
+                    {
+                        slug: 'cytovir', title: 'Цитовир', client: '',
+                        category: 'Коммуникация · макеты', color: 'text-brand-sky', tags: ['creative'],
+                        shortDesc: 'Коммуникационно-креативные решения, ролик и макеты для бренда Цитовир.',
+                        keyMessage: '',
+                        fullDesc: `<p><span class="text-brand-red font-bold">Задача:</span> коммуникационно-креативные решения и макеты для бренда Цитовир в категории простудных средств.</p><p class="mt-4"><span class="text-brand-cyan font-bold">Что сделано:</span> коммуникационно-креативное решение, ролик, макеты — системная работа с брендом в сезонной категории.</p>`,
+                        media: [
+                            { kind: 'video', span: 'wide', src: 'videos/farma/cytovir-roll.mp4', label: 'Ролик: сезонная коммуникация' },
+                            { kind: 'kv', span: 'wide', src: 'images/farma/cytovir-kv-1.jpg', label: 'KV: ключевой визуал' }
+                        ]
+                    },
+                    {
+                        slug: 'doritricin', title: 'Доритрицин', client: '',
+                        category: 'Запуск в России', color: 'text-brand-red', tags: ['launch', 'creative'],
+                        shortDesc: 'Немецкий тройной состав для горла: Eins! Zwei! Drei! — и запуск «Теперь и в России!»',
+                        keyMessage: 'Доритрицин — то, чем лечат горло в Германии',
+                        fullDesc: `<p><span class="text-brand-red font-bold">Задача:</span> представить на российском рынке немецкий препарат для горла с уникальным тройным составом.</p><p class="mt-4"><span class="text-white font-bold">Решение:</span> запуск построили на доверии к немецким стандартам: «Доритрицин — то, чем лечат горло в Германии». Игровая считалка Eins! Zwei! Drei! раскрывает три действия: блокирует боль, препятствует развитию инфекции, избавляет от бактерий, грибков и вирусов. «Немецкие стандарты GMP требуют тройного контроля» — аргумент, который закрепляет премиальное происхождение бренда.</p><p class="mt-4"><span class="text-brand-cyan font-bold">Результат:</span> заметный запуск «Теперь и в России!» с понятной дифференциацией через тройной состав и немецкое качество.</p>`,
+                        media: [
+                            { kind: 'video', span: 'wide', src: 'videos/farma/doritricin-roll.mp4', label: 'Ролик: Eins! Zwei! Drei!' },
+                            { kind: 'kv', span: 'wide', src: 'images/farma/doritricin-kv-1.jpg', label: 'KV: «то, чем лечат горло в Германии»' },
+                            { kind: 'pack', span: 'tall', src: 'images/farma/doritricin-pack-1.jpg', label: 'Упаковка: тройной состав' }
+                        ]
+                    },
+                    {
+                        slug: 'epigen', title: 'Эпиген гель', client: '',
+                        category: 'Коммуникация · ролик', color: 'text-brand-cyan', tags: ['creative'],
+                        shortDesc: 'Доверительная и точная коммуникация для деликатной категории.',
+                        keyMessage: '',
+                        fullDesc: `<p><span class="text-brand-red font-bold">Задача:</span> коммуникационно-креативное решение, ролик и макеты для Эпиген гель — деликатная категория, требующая доверительной и точной коммуникации.</p><p class="mt-4"><span class="text-brand-cyan font-bold">Что сделано:</span> коммуникационно-креативное решение, ролик, макеты с аккуратным визуальным языком и корректной подачей.</p>`,
+                        media: [
+                            { kind: 'video', span: 'wide', src: 'videos/farma/epigen-roll.mp4', label: 'Ролик: деликатная коммуникация' },
+                            { kind: 'kv', span: 'wide', src: 'images/farma/epigen-kv-1.jpg', label: 'KV: ключевой визуал' }
+                        ]
+                    },
+                    {
+                        slug: 'meditonzin', title: 'Медитонзин', client: '',
+                        category: 'Коммуникация · digital', color: 'text-brand-sky', tags: ['creative'],
+                        shortDesc: '«Бережен к иммунитету. Спасибо его авторам»: немецкий подход к простуде, подтверждённый клинически.',
+                        keyMessage: 'Немецкие учёные разбираются с простудой',
+                        fullDesc: `<p><span class="text-brand-red font-bold">Задача:</span> коммуникация для немецкого препарата от простуды: объяснить преимущества и повысить доверие.</p><p class="mt-4"><span class="text-white font-bold">Решение:</span> «Медитонзин: немецкие учёные разбираются с простудой» — борется с основными симптомами простуды, повышает собственные защитные силы организма и помогает предотвратить осложнения. Тёплый слоган «Бережен к иммунитету. Спасибо его авторам» и аргумент эффективности: клинические исследования с участием почти 4000 пациентов, в том числе детей от 7 месяцев.</p>`,
+                        media: [
+                            { kind: 'video', span: 'wide', src: 'videos/farma/meditonzin-roll.mp4', label: 'Ролик: немецкие учёные' },
+                            { kind: 'kv', span: 'wide', src: 'images/farma/meditonzin-kv-1.jpg', label: 'KV: «Бережен к иммунитету»' },
+                            { kind: 'banner', span: 'tall', src: 'images/farma/meditonzin-banner-1.jpg', label: 'Баннер: клинические доказательства' }
+                        ]
+                    }
+                ],
+
+                get active() {
+                    return this.cases.find(c => c.slug === this.activeCase) || null;
+                },
+
+                filteredCases() {
+                    if (this.filter === 'all') return this.cases;
+                    return this.cases.filter(c => c.tags.includes(this.filter));
+                },
+
+                init() {
+                    this.updateCols();
+                    window.addEventListener('resize', () => this.updateCols());
+                    const h = window.location.hash.replace('#', '');
+                    if (h && this.cases.some(c => c.slug === h)) {
+                        this.activeCase = h;
+                        this.$nextTick(() => this.scrollToDetail());
+                    }
+                },
+
+                updateCols() {
+                    const w = window.innerWidth;
+                    this.cols = w >= 1024 ? 3 : (w >= 768 ? 2 : 1);
+                },
+
+                rowOf(i) {
+                    return Math.floor(i / this.cols);
+                },
+
+                showDetailAfter(i) {
+                    if (!this.activeCase) return false;
+                    const list = this.filteredCases();
+                    const ai = list.findIndex(c => c.slug === this.activeCase);
+                    if (ai < 0) return false;
+                    const row = this.rowOf(ai);
+                    if (this.rowOf(i) !== row) return false;
+                    const isLastInRow = (i === list.length - 1) || this.rowOf(i + 1) !== row;
+                    return isLastInRow;
+                },
+
+                openPanel(slug) {
+                    this.activeCase = (this.activeCase === slug) ? null : slug;
+                    if (this.activeCase) {
+                        this.setHash(slug);
+                        this.$nextTick(() => this.scrollToDetail());
+                    } else {
+                        this.setHash('');
+                    }
+                },
+
+                closePanel() {
+                    if (this.activeCase) {
+                        this.activeCase = null;
+                        this.setHash('');
+                    }
+                },
+
+                setFilter(key) {
+                    this.filter = key;
+                    if (this.activeCase && !this.filteredCases().some(c => c.slug === this.activeCase)) {
+                        this.activeCase = null;
+                        this.setHash('');
+                    }
+                },
+
+                scrollToDetail() {
+                    const el = document.getElementById('case-detail');
+                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                },
+
+                setHash(slug) {
+                    try {
+                        history.replaceState(null, '', slug ? '#' + slug : window.location.pathname + window.location.search);
+                    } catch (e) {}
+                },
+
+                isVideo(url) {
+                    return url.endsWith('.mp4') || url.endsWith('.webm');
+                },
+
+                mediaIcon(kind) {
+                    return { video: '🎬', kv: '🖼️', pack: '📦', ooh: '🪧', posm: '🛍️', banner: '🖥️' }[kind] || '📁';
+                }
+            }
+        }
+    </script>
+</head>
+<body class="antialiased min-h-screen flex flex-col relative overflow-x-hidden">
+
+  <!-- Background FX -->
+  <div class="fixed inset-0 z-0 pointer-events-none">
+    <div class="absolute top-[-10%] right-[-5%] w-[40vw] h-[40vw] bg-brand-cyan/5 rounded-full blur-[100px]"></div>
+    <div class="absolute bottom-[-10%] left-[-5%] w-[40vw] h-[40vw] bg-brand-red/5 rounded-full blur-[100px]"></div>
+    <div class="scanlines absolute inset-0 z-10"></div>
+    <div class="bg-watermark text-white select-none glitch-quiet" data-text="ФАРМА">ФАРМА</div>
+  </div>
+
+  <div x-data="farmaData()" x-cloak x-init="init()" @keydown.escape="closePanel()">
+
+    <!-- HEADER -->
+    <header class="border-b border-brand-border/30 backdrop-blur-md sticky top-0 z-50 bg-brand-bg/80">
+      <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+        <a href="index.html" class="flex items-center gap-3">
+          <span class="glitch-quiet text-lg sm:text-xl uppercase tracking-tight" data-text="ПЕРЕДВИЖНИКИ 2.0">ПЕРЕДВИЖНИКИ 2.0</span>
+        </a>
+        <nav class="hidden md:flex gap-6 text-sm font-semibold text-brand-muted tracking-wide">
+          <a href="index.html#gallery" class="hover:text-brand-cyan transition-colors">Кейсы</a>
+          <a href="experience.html" class="hover:text-brand-cyan transition-colors">Опыт</a>
+          <a href="index.html#contact" class="hover:text-brand-cyan transition-colors">Контакты</a>
+        </nav>
+        <a href="index.html#contact" class="px-5 py-2 bg-brand-red/90 text-white rounded-lg text-sm font-bold hover:bg-brand-red transition-colors shadow-[0_0_10px_rgba(255,59,92,0.3)]">Обсудить проект</a>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="relative px-4 pt-16 pb-10 lg:pt-24 lg:pb-12">
+      <div class="container mx-auto max-w-5xl text-center z-10 relative">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-surface/40 border border-brand-cyan/30 text-brand-cyan text-xs font-bold uppercase tracking-wider mb-8">
+          <span class="w-1.5 h-1.5 rounded-full bg-brand-cyan animate-pulse"></span> 20+ лет в фарме · OTC и Rx
+        </div>
+
+        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black mb-6 leading-[0.95] tracking-tight">
+          <span class="glitch-hero" data-text="Кейсы: Фарма">Кейсы: Фарма</span>
+        </h1>
+
+        <p class="text-brand-muted text-lg max-w-2xl mx-auto leading-relaxed">
+          Запуски, репозиционирование и креативные кампании, которые выводили бренды в лидеры категорий
+        </p>
+
+        <p class="mt-6 text-xs font-mono text-brand-muted/60">// 20 фарм-кейсов · медиа подтянутся из images/farma и videos/farma</p>
+      </div>
+    </section>
+
+    <!-- PARTNERSHIPS -->
+    <section class="relative z-10 px-4 pb-10">
+      <div class="container mx-auto max-w-6xl flex flex-col lg:flex-row gap-4 justify-center">
+        <div class="glass-card rounded-xl px-6 py-4 text-sm text-brand-muted flex items-center gap-3">
+          <span class="text-xl">💼</span>
+          <span><span class="text-white font-bold">Оболонское → Allium / Биннофарм Групп</span> · стратегическое сотрудничество 2016–2024</span>
+        </div>
+        <div class="glass-card rounded-xl px-6 py-4 text-sm text-brand-muted flex items-center gap-3">
+          <span class="text-xl">💼</span>
+          <span><span class="text-white font-bold">Верофарм</span> · стратегическое сотрудничество 2016–2024</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- FILTER + GRID -->
+    <section id="cases" class="relative z-10 px-4 pb-24">
+      <div class="container mx-auto max-w-6xl">
+
+        <div class="flex flex-wrap gap-2 justify-center mb-12">
+          <button @click="setFilter('all')"
+                  class="px-4 py-2 rounded-lg text-sm font-bold border transition-colors"
+                  :class="filter === 'all' ? 'bg-brand-cyan text-brand-bg border-brand-cyan' : 'border-brand-border/60 text-brand-muted hover:text-white'">
+            Все кейсы
+          </button>
+          <template x-for="(label, key) in tags" :key="key">
+            <button @click="setFilter(key)"
+                    class="px-4 py-2 rounded-lg text-sm font-bold border transition-colors"
+                    :class="filter === key ? 'bg-brand-cyan text-brand-bg border-brand-cyan' : 'border-brand-border/60 text-brand-muted hover:text-white'"
+                    x-text="label"></button>
+          </template>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <template x-for="(c, i) in filteredCases()" :key="c.slug">
+            <div class="contents">
+
+              <!-- КАРТОЧКА КЕЙСА -->
+              <article @click="openPanel(c.slug)"
+                       class="glass-card rounded-2xl p-7 cursor-pointer flex flex-col gap-4 group"
+                       :class="activeCase === c.slug ? '!border-brand-cyan shadow-[0_0_30px_rgba(0,229,255,0.15)]' : ''">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-[10px] font-bold uppercase tracking-widest" :class="c.color" x-text="c.category"></span>
+                </div>
+                <h3 class="text-2xl font-bold text-white group-hover:text-brand-cyan transition-colors" x-text="c.title"></h3>
+                <p class="text-brand-muted text-sm leading-relaxed" x-text="c.shortDesc"></p>
+                <p class="text-xs font-mono text-brand-muted/70" x-show="c.client" x-text="c.client"></p>
+                <div class="flex flex-wrap gap-2 mt-auto pt-2">
+                  <template x-for="t in c.tags" :key="t">
+                    <span class="px-2 py-1 text-xs font-mono bg-brand-surface/60 border border-brand-border/30 rounded text-brand-sky" x-text="tags[t]"></span>
+                  </template>
+                </div>
+                <div class="text-xs font-mono text-brand-muted/70 group-hover:text-brand-cyan transition-colors pt-2"
+                     x-text="activeCase === c.slug ? 'Свернуть ↑' : 'Смотреть кейс →'"></div>
+              </article>
+
+              <!-- ПАНЕЛЬ КЕЙСА МЕЖДУ РЯДАМИ -->
+              <template x-if="showDetailAfter(i)">
+                <div id="case-detail"
+                     class="col-span-full scroll-mt-24 bg-[#081121] border border-brand-cyan/20 rounded-2xl p-6 lg:p-10"
+                     x-transition:enter="transition ease-out duration-300"
+                     x-transition:enter-start="opacity-0 translate-y-4"
+                     x-transition:enter-end="opacity-100 translate-y-0">
+
+                  <div class="flex flex-col gap-8" x-cloak>
+
+                    <div class="flex items-center justify-between gap-4">
+                      <span class="text-xs font-mono text-brand-muted/60">// кейс раскрыт между строк — сетка выше и ниже сохранена</span>
+                      <button @click="closePanel()" class="text-brand-muted hover:text-white text-sm font-mono flex items-center gap-2 transition-colors">
+                        <span class="text-xl">←</span> Свернуть
+                      </button>
+                    </div>
+
+                    <div>
+                      <h3 class="text-sm font-bold uppercase tracking-widest mb-2" :class="active.color" x-text="active.category"></h3>
+                      <p class="text-xs font-mono text-brand-muted mb-4" x-show="active.client" x-text="'Клиент: ' + active.client"></p>
+                      <h2 class="text-3xl lg:text-5xl font-bold" x-text="active.title"></h2>
+                    </div>
+
+                    <blockquote class="border-l-4 border-brand-cyan pl-6 py-3 bg-brand-surface/30 rounded-r-lg text-white font-semibold text-lg"
+                                x-show="active.keyMessage" x-text="active.keyMessage"></blockquote>
+
+                    <div class="text-brand-muted text-lg leading-relaxed space-y-5 max-w-4xl" x-html="active.fullDesc"></div>
+
+                    <div>
+                      <h4 class="text-sm font-bold uppercase tracking-widest text-brand-muted mb-6">Материалы кейса</h4>
+                      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <template x-for="(m, mi) in active.media" :key="mi">
+                          <div x-data="{ missing: false }"
+                               class="relative rounded-xl overflow-hidden"
+                               :class="m.span === 'wide' ? 'md:col-span-2 aspect-video' : 'aspect-[3/4]'">
+
+                            <!-- Заглушка: показывает, какой файл куда положить -->
+                            <div x-show="missing" class="placeholder-box absolute inset-0 flex flex-col items-center justify-center gap-2 p-4 text-center">
+                              <span class="text-3xl opacity-60" x-text="mediaIcon(m.kind)"></span>
+                              <span class="text-sm font-mono text-brand-muted" x-text="m.label"></span>
+                              <span class="text-[11px] font-mono text-brand-cyan/80 break-all" x-text="m.src"></span>
+                              <span class="text-[10px] uppercase tracking-widest text-brand-muted/50"
+                                    x-text="isVideo(m.src) ? 'положи ролик с этим именем в videos/farma' : 'положи файл с этим именем в images/farma'"></span>
+                            </div>
+
+                            <template x-if="!isVideo(m.src)">
+                              <img :src="m.src" :alt="m.label" @error="missing = true" x-show="!missing"
+                                   class="absolute inset-0 w-full h-full object-cover">
+                            </template>
+                            <template x-if="isVideo(m.src)">
+                              <video :src="m.src" controls @error="missing = true" x-show="!missing"
+                                     class="absolute inset-0 w-full h-full object-cover"></video>
+                            </template>
+
+                          </div>
+                        </template>
+                      </div>
+                    </div>
+
+                    <div class="pt-6 border-t border-brand-border/30">
+                      <a href="index.html#contact" class="inline-flex items-center gap-3 text-brand-cyan hover:text-white font-bold text-xl transition-colors group">
+                        <span class="text-3xl group-hover:translate-x-2 transition-transform">→</span>
+                        Обсудить похожий проект
+                      </a>
+                    </div>
+
+                  </div>
+                </div>
+              </template>
+
+            </div>
+          </template>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-brand-border/30 py-8 text-center text-brand-muted text-xs mt-auto relative z-20">
+      <div class="container mx-auto px-4">
+        <p class="mb-2">&copy; 2026 Передвижники 2.0. Human + AI Agency.</p>
+        <p class="opacity-50">Кейсы: Фарма · 20 кейсов.</p>
+      </div>
+    </footer>
+
+  </div>
+</body>
+</html>
