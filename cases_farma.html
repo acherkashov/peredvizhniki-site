@@ -519,35 +519,35 @@
                     <div class="text-brand-muted text-lg leading-relaxed space-y-5 max-w-4xl" x-html="active.fullDesc"></div>
 
                     <div>
-                      <h4 class="text-sm font-bold uppercase tracking-widest text-brand-muted mb-6">Материалы кейса</h4>
-                      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <template x-for="(m, mi) in active.media" :key="mi">
-                          <div x-data="{ missing: false }"
-                               class="relative rounded-xl overflow-hidden"
-                               :class="m.span === 'wide' ? 'md:col-span-2 aspect-video' : 'aspect-[3/4]'">
+  <h4 class="text-sm font-bold uppercase tracking-widest text-brand-muted mb-6">Материалы кейса</h4>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <template x-for="(m, mi) in active.media" :key="mi">
+      <div x-data="{ missing: false }"
+           class="relative rounded-xl overflow-hidden bg-brand-surface/40"
+           :class="m.span === 'wide' ? 'md:col-span-2' : ''">
 
-                            <!-- Заглушка: показывает, какой файл куда положить -->
-                            <div x-show="missing" class="placeholder-box absolute inset-0 flex flex-col items-center justify-center gap-2 p-4 text-center">
-                              <span class="text-3xl opacity-60" x-text="mediaIcon(m.kind)"></span>
-                              <span class="text-sm font-mono text-brand-muted" x-text="m.label"></span>
-                              <span class="text-[11px] font-mono text-brand-cyan/80 break-all" x-text="m.src"></span>
-                              <span class="text-[10px] uppercase tracking-widest text-brand-muted/50"
-                                    x-text="isVideo(m.src) ? 'положи ролик с этим именем в videos/farma' : 'положи файл с этим именем в images/farma'"></span>
-                            </div>
+        <!-- Заглушка: показывает имя файла -->
+        <div x-show="missing" class="placeholder-box flex flex-col items-center justify-center gap-2 p-8 text-center min-h-[240px]">
+          <span class="text-4xl opacity-60" x-text="mediaIcon(m.kind)"></span>
+          <span class="text-sm font-mono text-brand-muted" x-text="m.label"></span>
+          <span class="text-[11px] font-mono text-brand-cyan/80 break-all px-2" x-text="m.src"></span>
+          <span class="text-[10px] uppercase tracking-widest text-brand-muted/50"
+                x-text="isVideo(m.src) ? 'положи ролик с этим именем в videos/farma' : 'положи файл с этим именем в images/farma'"></span>
+        </div>
 
-                            <template x-if="!isVideo(m.src)">
-                              <img :src="m.src" :alt="m.label" @error="missing = true" x-show="!missing"
-                                   class="absolute inset-0 w-full h-full object-contain bg-brand-surface/40">
-                            </template>
-                            <template x-if="isVideo(m.src)">
-                              <video :src="m.src" controls @error="missing = true" x-show="!missing"
-                                     class="absolute inset-0 w-full h-full object-contain bg-black/40"></video>
-                            </template>
+        <template x-if="!isVideo(m.src)">
+          <img :src="m.src" :alt="m.label" @error="missing = true" x-show="!missing"
+               class="w-full h-auto block">
+        </template>
+        <template x-if="isVideo(m.src)">
+          <video :src="m.src" controls @error="missing = true" x-show="!missing"
+                 class="w-full h-auto block bg-black"></video>
+        </template>
 
-                          </div>
-                        </template>
-                      </div>
-                    </div>
+      </div>
+    </template>
+  </div>
+</div>
 
                     <div class="pt-6 border-t border-brand-border/30">
                       <a href="index.html#contact" class="inline-flex items-center gap-3 text-brand-cyan hover:text-white font-bold text-xl transition-colors group">
