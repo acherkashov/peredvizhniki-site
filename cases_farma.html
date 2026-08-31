@@ -482,19 +482,6 @@
     <section id="cases" class="relative z-10 px-4 pb-24">
       <div class="container mx-auto max-w-6xl">
 
-        <div class="flex flex-wrap gap-2 justify-center mb-12">
-          <button @click="setFilter('all')"
-                  class="px-4 py-2 rounded-lg text-sm font-bold border transition-colors"
-                  :class="filter === 'all' ? 'bg-brand-sky text-white border-brand-sky' : 'border-brand-border text-brand-muted hover:text-text hover:border-brand-sky'">
-            Все кейсы
-          </button>
-          <template x-for="(label, key) in tags" :key="key">
-            <button @click="setFilter(key)"
-                    class="px-4 py-2 rounded-lg text-sm font-bold border transition-colors"
-                    :class="filter === key ? 'bg-brand-sky text-white border-brand-sky' : 'border-brand-border text-brand-muted hover:text-text hover:border-brand-sky'"
-                    x-text="label"></button>
-          </template>
-        </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <template x-for="(c, i) in filteredCases()" :key="c.slug">
