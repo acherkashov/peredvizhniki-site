@@ -12,10 +12,10 @@
 
     <style>
         [x-cloak] { display: none !important; }
-        body { font-family: 'Manrope', sans-serif; background-color: #0A1428; color: #F4F6F9; }
+        body { font-family: 'Manrope', sans-serif; background-color: #FFFFFF; color: #0A1428; }
         
-        .glitch-quiet { position: relative; display: inline-block; color: #8B9BB4; font-weight: 800; transition: color 0.3s; }
-        .glitch-quiet:hover { color: #F4F6F9; }
+        .glitch-quiet { position: relative; display: inline-block; color: #5A6B8C; font-weight: 800; transition: color 0.3s; }
+        .glitch-quiet:hover { color: #0A1428; }
         .glitch-quiet::before, .glitch-quiet::after {
             content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.4; pointer-events: none;
         }
@@ -24,7 +24,7 @@
         @keyframes drift-1 { 0%{clip-path:inset(15% 0 85% 0)} 50%{clip-path:inset(75% 0 5% 0)} 100%{clip-path:inset(35% 0 45% 0)} }
         @keyframes drift-2 { 0%{clip-path:inset(85% 0 5% 0)} 50%{clip-path:inset(25% 0 65% 0)} 100%{clip-path:inset(65% 0 15% 0)} }
 
-        .glitch-hero { position: relative; display: inline-block; color: white; font-weight: 900; }
+        .glitch-hero { position: relative; display: inline-block; color: #0A1428; font-weight: 900; }
         .glitch-hero::before, .glitch-hero::after {
             content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.8;
         }
@@ -36,11 +36,11 @@
         .gallery-scroll { -ms-overflow-style: none; scrollbar-width: none; }
         .case-slide { scroll-snap-align: center; flex-shrink: 0; }
 
-        .glass-card { background: rgba(17, 29, 51, 0.5); backdrop-filter: blur(16px); border: 1px solid rgba(26, 43, 69, 0.6); transition: all 0.4s ease; }
-        .glass-card:hover { border-color: #00E5FF; box-shadow: 0 0 30px rgba(0, 229, 255, 0.1); }
+        .glass-card { background: rgba(240, 244, 248, 0.7); backdrop-filter: blur(16px); border: 1px solid rgba(26, 43, 69, 0.1); transition: all 0.4s ease; }
+        .glass-card:hover { border-color: #00E5FF; box-shadow: 0 0 30px rgba(0, 229, 255, 0.15); }
 
-        .scanlines { background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.12) 50%, rgba(0,0,0,0.12)); background-size: 100% 4px; pointer-events: none; }
-        .bg-watermark { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 25vw; font-weight: 900; opacity: 0.03; pointer-events: none; white-space: nowrap; z-index: 0; }
+        .scanlines { background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0) 50%, rgba(0,0,0,0.03) 50%, rgba(0,0,0,0.03)); background-size: 100% 4px; pointer-events: none; }
+        .bg-watermark { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 25vw; font-weight: 900; opacity: 0.02; pointer-events: none; white-space: nowrap; z-index: 0; color: #0A1428; }
     </style>
 
     <script>
@@ -48,7 +48,7 @@
             theme: {
                 extend: {
                     colors: {
-                        brand: { bg: '#0A1428', surface: '#111D33', border: '#1A2B45', cyan: '#00E5FF', red: '#FF3B5C', sky: '#7DD3FC', text: '#F4F6F9', muted: '#8B9BB4' }
+                        brand: { bg: '#FFFFFF', surface: '#F0F4F8', border: '#E2E8F0', cyan: '#00E5FF', red: '#FF3B5C', sky: '#0EA5E9', text: '#0A1428', muted: '#5A6B8C' }
                     },
                     fontFamily: { sans: ['Manrope', 'sans-serif'] }
                 }
@@ -64,8 +64,8 @@
                         id: 0, 
                         title: 'Люминария', 
                         category: 'Branding & Strategy',
-                        color: 'text-brand-cyan', 
-                        border: 'border-brand-cyan', 
+                        color: 'text-brand-sky', 
+                        border: 'border-brand-sky', 
                         heroImage: 'images/luminaria-1.png',
                         gallery: [
                             { src: 'images/luminaria-2.png', type: 'wide' },
@@ -73,7 +73,7 @@
                             { src: 'images/luminaria-4.png', type: 'tall' }
                         ],
                         shortDesc: 'Морские светильники. Лампы-филаменты, вдохновлённые люминесцентным сиянием медуз северных морей.',
-                        fullDesc: '<p><span class="text-brand-red font-bold">Задача:</span> Создать современные лампы-филаменты с эмоциональной связью и поэтикой северного океана. Отличиться от стандартных решений на рынке.</p><p class="mt-4"><span class="text-white font-bold">Концепция:</span> Аурелия, Пелагия, Медуза-луна — прозрачные странники глубины, что веками светили в холодной воде, словно маленькие звёзды под толщей океана.</p><p class="mt-4"><span class="text-brand-cyan font-bold">Результат:</span> Бренд «Люминария» — морские светильники. Свет, что рождается в океане. Каждая лампа стала продолжением истории о медузах с визуальной айдентикой в холодных северных цветах.</p>'
+                        fullDesc: '<p><span class="text-brand-red font-bold">Задача:</span> Создать современные лампы-филаменты с эмоциональной связью и поэтикой северного океана. Отличиться от стандартных решений на рынке.</p><p class="mt-4"><span class="text-text font-bold">Концепция:</span> Аурелия, Пелагия, Медуза-луна — прозрачные странники глубины, что веками светили в холодной воде, словно маленькие звёзды под толщей океана.</p><p class="mt-4"><span class="text-brand-sky font-bold">Результат:</span> Бренд «Люминария» — морские светильники. Свет, что рождается в океане. Каждая лампа стала продолжением истории о медузах с визуальной айдентикой в холодных северных цветах.</p>'
                     },
                     {
                         id: 1, 
@@ -91,7 +91,7 @@
                             { src: 'images/obscura-7.png', type: 'tall' }
                         ],
                         shortDesc: 'Свет из глубины. Дизайнерские лампы, вдохновлённые бионическими формами глубоководных удильщиков.',
-                        fullDesc: '<p><span class="text-brand-red font-bold">Задача:</span> Разработать концепцию премиального бренда ламп-филаментов с философской идеей. Позиционировать в премиальном сегменте.</p><p class="mt-4"><span class="text-white font-bold">Философия:</span> OBSCURA (с лат. «темнота») — чем глубже мрак, тем ярче сияние. Вдохновлено глубоководными удильщиками, чьи «удочки» светятся в полной темноте океана.</p><p class="mt-4"><span class="text-brand-cyan font-bold">Что сделано:</span> Оригинальные формы ламп, премиальная упаковка с иллюстрацией удильщика, философия контраста тьмы и света. Свет как часть истории, а не только функциональность.</p>'
+                        fullDesc: '<p><span class="text-brand-red font-bold">Задача:</span> Разработать концепцию премиального бренда ламп-филаментов с философской идеей. Позиционировать в премиальном сегменте.</p><p class="mt-4"><span class="text-text font-bold">Философия:</span> OBSCURA (с лат. «темнота») — чем глубже мрак, тем ярче сияние. Вдохновлено глубоководными удильщиками, чьи «удочки» светятся в полной темноте океана.</p><p class="mt-4"><span class="text-brand-sky font-bold">Что сделано:</span> Оригинальные формы ламп, премиальная упаковка с иллюстрацией удильщика, философия контраста тьмы и света. Свет как часть истории, а не только функциональность.</p>'
                     },
                     {
                         id: 2, 
@@ -107,14 +107,14 @@
                             { src: 'images/hrapuntsel-5.png', type: 'tall' }
                         ],
                         shortDesc: 'Всё для сна красоты. Новая категория женского beauty wellness.',
-                        fullDesc: '<p><span class="text-brand-red font-bold">Задача:</span> Мы создаём не просто бренд гаджетов для сна, а новую категорию женского beauty wellness: продукты, которые помогают женщине восстанавливаться, расслабляться и становиться красивее во сне.</p><p class="mt-4"><span class="text-white font-bold">Концепция:</span> Идея бренда строится на простом, но сильном инсайте: сон — главный бьюти-ритуал, который работает без усилий, пока женщина отдыхает. Храпунцель превращает заботу о сне в красивую, технологичную и желанную привычку: умные маски, часы, световые и сенсорные гаджеты помогают засыпать мягче, спать глубже и просыпаться свежее. В основе бренда — не магия, а законы сомнологии: ритмы сна, темнота, расслабление, дыхание, тактильный комфорт, контроль восстановления. Но поданы они не сухо и медицински, а через нежную, женственную и современную эстетику.</p><p class="mt-4"><span class="text-brand-cyan font-bold">Результат:</span> Храпунцель — это бренд для женщин, которые понимают: красота начинается не утром у зеркала, а ночью — во сне. Это сон, который работает на красоту.</p>'
+                        fullDesc: '<p><span class="text-brand-red font-bold">Задача:</span> Мы создаём не просто бренд гаджетов для сна, а новую категорию женского beauty wellness: продукты, которые помогают женщине восстанавливаться, расслабляться и становиться красивее во сне.</p><p class="mt-4"><span class="text-text font-bold">Концепция:</span> Идея бренда строится на простом, но сильном инсайте: сон — главный бьюти-ритуал, который работает без усилий, пока женщина отдыхает. Храпунцель превращает заботу о сне в красивую, технологичную и желанную привычку: умные маски, часы, световые и сенсорные гаджеты помогают засыпать мягче, спать глубже и просыпаться свежее. В основе бренда — не магия, а законы сомнологии: ритмы сна, темнота, расслабление, дыхание, тактильный комфорт, контроль восстановления. Но поданы они не сухо и медицински, а через нежную, женственную и современную эстетику.</p><p class="mt-4"><span class="text-brand-sky font-bold">Результат:</span> Храпунцель — это бренд для женщин, которые понимают: красота начинается не утром у зеркала, а ночью — во сне. Это сон, который работает на красоту.</p>'
                     },
                     {
                         id: 3, 
                         title: 'Злато Серебро', 
                         category: 'Brand Identity',
-                        color: 'text-brand-cyan', 
-                        border: 'border-brand-cyan', 
+                        color: 'text-brand-sky', 
+                        border: 'border-brand-sky', 
                         heroImage: 'images/zl-1.png',
                         gallery: [
                             { src: 'images/zl-2.png', type: 'wide' },
@@ -123,7 +123,7 @@
                             { src: 'images/zl-5.png', type: 'wide' }
                         ],
                         shortDesc: 'Кустарный бренд грубых украшений с характером. Не салонная драгоценность, а вещь с силой.',
-                        fullDesc: '<p><span class="text-brand-red font-bold">Задача:</span> Создать бренд украшений, который отвергает рафинированность и гладкость в пользу настоящей русской кустарности.</p><p class="mt-4"><span class="text-white font-bold">Манифест:</span> Нам надоела рафинированность чужестранцев. Гладкое золото, вежливое серебро, украшения без голоса, без следа руки, без характера. Мы не про это. «Злато Серебро» — это кустарный бренд грубых украшений. Не крафт в западном смысле — аккуратный, модный, прилизанный. А правильная русская кустарность: когда вещь не нарисовали в программе, а вырубили, выбили, выковали. Когда металл не украшали, а укрощали. Здесь видно руку. Здесь слышен удар. Здесь есть шероховатость, неровность, след молота, след огня, след человека. В них есть что-то от кузнеца, от древнего оберега, от леса, от зверя, от травы, от русской земли. Не салонная драгоценность, а вещь с силой. Не украшение для витрины, а знак, который носят на себе. Мы берём золото и серебро не как символ роскоши, а как материал мифа. Потому что в русской сказке злато и серебро — это не просто металл. Это клад. Это добыча. Это дар. Это испытание. «Злато Серебро» — украшения, будто найденные в старом лесу, выкованные у огня и доставшиеся не случайно.</p>'
+                        fullDesc: '<p><span class="text-brand-red font-bold">Задача:</span> Создать бренд украшений, который отвергает рафинированность и гладкость в пользу настоящей русской кустарности.</p><p class="mt-4"><span class="text-text font-bold">Манифест:</span> Нам надоела рафинированность чужестранцев. Гладкое золото, вежливое серебро, украшения без голоса, без следа руки, без характера. Мы не про это. «Злато Серебро» — это кустарный бренд грубых украшений. Не крафт в западном смысле — аккуратный, модный, прилизанный. А правильная русская кустарность: когда вещь не нарисовали в программе, а вырубили, выбили, выковали. Когда металл не украшали, а укрощали. Здесь видно руку. Здесь слышен удар. Здесь есть шероховатость, неровность, след молота, след огня, след человека. В них есть что-то от кузнеца, от древнего оберега, от леса, от зверя, от травы, от русской земли. Не салонная драгоценность, а вещь с силой. Не украшение для витрины, а знак, который носят на себе. Мы берём золото и серебро не как символ роскоши, а как материал мифа. Потому что в русской сказке злато и серебро — это не просто металл. Это клад. Это добыча. Это дар. Это испытание. «Злато Серебро» — украшения, будто найденные в старом лесу, выкованные у огня и доставшиеся не случайно.</p>'
                     },
                     {
                         id: 4, 
@@ -136,7 +136,7 @@
                             { src: 'images/profitus-2.mp4', type: 'wide' }
                         ],
                         shortDesc: 'Настоящий профи от сухого кашля. Яркий запуск с креативной метафорой соломенного пугала.',
-                        fullDesc: '<p><span class="text-brand-red font-bold">Задача:</span> Создать яркий и мгновенно считываемый запуск средства от сухого кашля.</p><p class="mt-4"><span class="text-white font-bold">Концепция:</span> Для запуска средства Профитус мы создали яркую и мгновенно считываемую креативную рамку: сухой кашель был представлен через образ соломенного пугала — сухого, колкого, раздражающего, почти физически ощутимого. Эта метафора позволила просто и выразительно показать проблему: сухой кашель не просто мешает, он «пугает», появляется внезапно и требует профессионального решения. Так появилась ключевая коммуникационная формула: «Профитус — настоящий профи от сухого кашля». В рамках запуска были разработаны ключевой визуал и ролик, где упаковка становится главным героем и уверенным ответом на угрозу сухого кашля. Визуальная система сочетает медицинскую чистоту, современную фармацевтическую подачу и креативный образ, который легко запоминается и помогает бренду выделиться в категории.</p><p class="mt-4"><span class="text-brand-cyan font-bold">Результат:</span> Понятный, яркий и рекламно сильный ланч: с простой идеей, заметным KV и героем, который делает сухой кашель узнаваемым образом, а Профитус — очевидным профессиональным решением.</p>'
+                        fullDesc: '<p><span class="text-brand-red font-bold">Задача:</span> Создать яркий и мгновенно считываемый запуск средства от сухого кашля.</p><p class="mt-4"><span class="text-text font-bold">Концепция:</span> Для запуска средства Профитус мы создали яркую и мгновенно считываемую креативную рамку: сухой кашель был представлен через образ соломенного пугала — сухого, колкого, раздражающего, почти физически ощутимого. Эта метафора позволила просто и выразительно показать проблему: сухой кашель не просто мешает, он «пугает», появляется внезапно и требует профессионального решения. Так появилась ключевая коммуникационная формула: «Профитус — настоящий профи от сухого кашля». В рамках запуска были разработаны ключевой визуал и ролик, где упаковка становится главным героем и уверенным ответом на угрозу сухого кашля. Визуальная система сочетает медицинскую чистоту, современную фармацевтическую подачу и креативный образ, который легко запоминается и помогает бренду выделиться в категории.</p><p class="mt-4"><span class="text-brand-sky font-bold">Результат:</span> Понятный, яркий и рекламно сильный ланч: с простой идеей, заметным KV и героем, который делает сухой кашель узнаваемым образом, а Профитус — очевидным профессиональным решением.</p>'
                     },
                     {
                         id: 5, 
@@ -149,21 +149,21 @@
                             { src: 'images/gus-2.png', type: 'tall' }
                         ],
                         shortDesc: 'Боярыня среди птиц. Национальный бренд деликатесов из гусятины с характером и достоинством.',
-                        fullDesc: '<p><span class="text-brand-red font-bold">Задача:</span> Создать бренд премиальных деликатесов из гусятины.</p><p class="mt-4"><span class="text-white font-bold">Концепция:</span> Мы придумали «Гусарыню» — национальный бренд деликатесов из гусятины с характером, достоинством и лёгкой улыбкой. В центре бренда — простая, но очень вкусная идея: если гусь — птица важная, то гусыня у нас не просто гусыня. Она — боярыня среди птиц. С осанкой, родом, статусом и собственным гастрономическим троном. Так появилось имя «Гусарыня» — оригинальное, запоминающееся, с национальным колоритом и мягкой игрой смыслов. В нём слышится и гусь, и государыня, и боярыня, и что-то очень русское: не сувенирное, а настоящее, породистое, с внутренней статью. Задача бренда — вывести деликатесы из гусятины из привычной фермерской или ресторанной подачи в пространство подарочного premium food. Не просто «продукт из гуся», а гастрономический объект желания: красивый, статусный, достойный стола, подарка и особого случая. Главный продукт линейки — фуа-гра. Лучшая фуа-гра в мире. Да что там в мире — в России. Именно в этой интонации строится бренд: уверенно, с аппетитом, без провинциальной скромности, но и без тяжёлого пафоса. «Гусарыня» может позволить себе быть нарядной, немного ироничной, но при этом абсолютно премиальной. Визуальная система продолжает идею боярской птицы: глубокий пурпурный цвет, тонкое золото, орнаментальная графика, образ гусыни в царственном уборе. Упаковка выглядит как шкатулка с деликатесом: её хочется открыть, подарить, поставить на стол и рассмотреть.</p><p class="mt-4"><span class="text-brand-cyan font-bold">Результат:</span> Мы создали бренд, в котором национальная тема звучит не лубочно, а изысканно. Не «народный промысел», а новая русская гастрономическая роскошь. «Гусарыня» — деликатесы из гусятины для тех, кто знает: у каждой птицы свой полёт, но только у гусыни может быть титул.</p>'
+                        fullDesc: '<p><span class="text-brand-red font-bold">Задача:</span> Создать бренд премиальных деликатесов из гусятины.</p><p class="mt-4"><span class="text-text font-bold">Концепция:</span> Мы придумали «Гусарыню» — национальный бренд деликатесов из гусятины с характером, достоинством и лёгкой улыбкой. В центре бренда — простая, но очень вкусная идея: если гусь — птица важная, то гусыня у нас не просто гусыня. Она — боярыня среди птиц. С осанкой, родом, статусом и собственным гастрономическим троном. Так появилось имя «Гусарыня» — оригинальное, запоминающееся, с национальным колоритом и мягкой игрой смыслов. В нём слышится и гусь, и государыня, и боярыня, и что-то очень русское: не сувенирное, а настоящее, породистое, с внутренней статью. Задача бренда — вывести деликатесы из гусятины из привычной фермерской или ресторанной подачи в пространство подарочного premium food. Не просто «продукт из гуся», а гастрономический объект желания: красивый, статусный, достойный стола, подарка и особого случая. Главный продукт линейки — фуа-гра. Лучшая фуа-гра в мире. Да что там в мире — в России. Именно в этой интонации строится бренд: уверенно, с аппетитом, без провинциальной скромности, но и без тяжёлого пафоса. «Гусарыня» может позволить себе быть нарядной, немного ироничной, но при этом абсолютно премиальной. Визуальная система продолжает идею боярской птицы: глубокий пурпурный цвет, тонкое золото, орнаментальная графика, образ гусыни в царственном уборе. Упаковка выглядит как шкатулка с деликатесом: её хочется открыть, подарить, поставить на стол и рассмотреть.</p><p class="mt-4"><span class="text-brand-sky font-bold">Результат:</span> Мы создали бренд, в котором национальная тема звучит не лубочно, а изысканно. Не «народный промысел», а новая русская гастрономическая роскошь. «Гусарыня» — деликатесы из гусятины для тех, кто знает: у каждой птицы свой полёт, но только у гусыни может быть титул.</p>'
                     },
                     {
                         id: 6, 
                         title: 'CATSBY', 
                         category: 'Premium Pet Food',
-                        color: 'text-brand-cyan', 
-                        border: 'border-brand-cyan', 
+                        color: 'text-brand-sky', 
+                        border: 'border-brand-sky', 
                         heroImage: 'images/catsby-1.png',
                         gallery: [
                             { src: 'images/catsby-2.png', type: 'wide' },
                             { src: 'images/catsby-3.png', type: 'tall' }
                         ],
                         shortDesc: 'Премиальный корм для кошек с великим вкусом. The great taste. The grand life.',
-                        fullDesc: '<p><span class="text-brand-red font-bold">Задача:</span> Создать концепт премиального корма для кошек, который превращает ежедневное кормление в светский ритуал.</p><p class="mt-4"><span class="text-white font-bold">Концепция:</span> Мы создали концепт премиального корма для кошек CATSBY — бренда, который превращает ежедневное кормление в маленький светский ритуал. Название работает сразу на нескольких уровнях: в нём есть и кошка, и культурная отсылка к Гэтсби — миру изысканного вкуса, красивой жизни, статуса и лёгкой театральности. В основе бренда — идея: «The great taste. The grand life». Это корм не просто про питание, а про особое отношение к питомцу: как к маленькому аристократу дома, которому положено лучшее. Для CATSBY была разработана линейка изысканных рецептур: foie gras, salmon carpaccio, grilled venison — фуа-гра, лосось, олень. Это не просто вкусы, а гастрономические коды высокой кухни, которые сразу выводят бренд из категории обычного корма в пространство премиального pet-gourmet. Визуальная система строится на эстетике ар-деко: глубокие благородные цвета, золото, изящные рамки, портрет чёрного кота как главного героя упаковки. Каждая пачка выглядит как коллекционное издание — почти как обложка дорогой книги или афиша закрытого клуба. Креативная рамка бренда — премиальная, но не скучная. Мы сознательно добавили лёгкую иронию: CATSBY настолько вкусный, что даже самый воспитанный кот может забыть о приличиях. Эта идея делает бренд живым, обаятельным и запоминающимся, не разрушая его люксовый образ.</p><p class="mt-4"><span class="text-brand-cyan font-bold">Визуал:</span> Так появился ключевой визуал: роскошный интерьер, чёрный кот, пакет CATSBY на голове — смешно, элегантно и очень по-кошачьи. Этот ход создаёт сильный баланс между «дорого» и «человечно»: бренд выглядит премиальным, но не холодным; умным, но не заносчивым; красивым, но с характером. CATSBY — это премиальный корм для кошек, который говорит с владельцем языком вкуса, стиля и лёгкой самоиронии.</p>'
+                        fullDesc: '<p><span class="text-brand-red font-bold">Задача:</span> Создать концепт премиального корма для кошек, который превращает ежедневное кормление в светский ритуал.</p><p class="mt-4"><span class="text-text font-bold">Концепция:</span> Мы создали концепт премиального корма для кошек CATSBY — бренда, который превращает ежедневное кормление в маленький светский ритуал. Название работает сразу на нескольких уровнях: в нём есть и кошка, и культурная отсылка к Гэтсби — миру изысканного вкуса, красивой жизни, статуса и лёгкой театральности. В основе бренда — идея: «The great taste. The grand life». Это корм не просто про питание, а про особое отношение к питомцу: как к маленькому аристократу дома, которому положено лучшее. Для CATSBY была разработана линейка изысканных рецептур: foie gras, salmon carpaccio, grilled venison — фуа-гра, лосось, олень. Это не просто вкусы, а гастрономические коды высокой кухни, которые сразу выводят бренд из категории обычного корма в пространство премиального pet-gourmet. Визуальная система строится на эстетике ар-деко: глубокие благородные цвета, золото, изящные рамки, портрет чёрного кота как главного героя упаковки. Каждая пачка выглядит как коллекционное издание — почти как обложка дорогой книги или афиша закрытого клуба. Креативная рамка бренда — премиальная, но не скучная. Мы сознательно добавили лёгкую иронию: CATSBY настолько вкусный, что даже самый воспитанный кот может забыть о приличиях. Эта идея делает бренд живым, обаятельным и запоминающимся, не разрушая его люксовый образ.</p><p class="mt-4"><span class="text-brand-sky font-bold">Визуал:</span> Так появился ключевой визуал: роскошный интерьер, чёрный кот, пакет CATSBY на голове — смешно, элегантно и очень по-кошачьи. Этот ход создаёт сильный баланс между «дорого» и «человечно»: бренд выглядит премиальным, но не холодным; умным, но не заносчивым; красивым, но с характером. CATSBY — это премиальный корм для кошек, который говорит с владельцем языком вкуса, стиля и лёгкой самоиронии.</p>'
                     }
                 ],
                 openPanel(index) {
@@ -186,16 +186,16 @@
 <body class="antialiased min-h-screen flex flex-col relative overflow-x-hidden">
   
   <div class="fixed inset-0 z-0 pointer-events-none">
-    <div class="absolute top-[-10%] right-[-5%] w-[40vw] h-[40vw] bg-brand-cyan/5 rounded-full blur-[100px]"></div>
+    <div class="absolute top-[-10%] right-[-5%] w-[40vw] h-[40vw] bg-brand-sky/5 rounded-full blur-[100px]"></div>
     <div class="absolute bottom-[-10%] left-[-5%] w-[40vw] h-[40vw] bg-brand-red/5 rounded-full blur-[100px]"></div>
     <div class="scanlines absolute inset-0 z-10"></div>
-    <div class="bg-watermark text-white select-none glitch-quiet" data-text="ПЕРЕДВИЖНИКИ">ПЕРЕДВИЖНИКИ</div>
+    <div class="bg-watermark text-text select-none glitch-quiet" data-text="ПЕРЕДВИЖНИКИ">ПЕРЕДВИЖНИКИ</div>
   </div>
 
   <div x-data="appData()" x-cloak @keydown.escape="activeCase = null; mobileMenuOpen = false">
 
     <!-- HEADER С МОБИЛЬНЫМ МЕНЮ -->
-    <header class="border-b border-brand-border/30 backdrop-blur-md sticky top-0 z-50 bg-brand-bg/80">
+    <header class="border-b border-brand-border/30 backdrop-blur-md sticky top-0 z-50 bg-white/80">
       <div class="container mx-auto px-4 py-3 flex justify-between items-center">
         <a href="index.html" class="flex items-center gap-3">
           <span class="glitch-quiet text-lg sm:text-xl uppercase tracking-tight" data-text="ПЕРЕДВИЖНИКИ 2.0">ПЕРЕДВИЖНИКИ 2.0</span>
@@ -203,19 +203,19 @@
         
         <!-- Десктопное меню -->
         <nav class="hidden md:flex gap-6 text-sm font-semibold text-brand-muted tracking-wide">
-          <a href="#gallery" class="hover:text-brand-cyan transition-colors">Кейсы</a>
-          <a href="process.html" class="hover:text-brand-cyan transition-colors">Процесс</a>
-          <a href="experience.html" class="hover:text-brand-cyan transition-colors">Опыт</a>
+          <a href="#gallery" class="hover:text-brand-sky transition-colors">Кейсы</a>
+          <a href="process.html" class="hover:text-brand-sky transition-colors">Процесс</a>
+          <a href="experience.html" class="hover:text-brand-sky transition-colors">Опыт</a>
         </nav>
-
+        
         <!-- Кнопка "Контакт с нами" (десктоп) -->
         <a href="#contact" class="hidden md:inline-flex px-5 py-2 bg-brand-red/90 text-white rounded-lg text-sm font-bold hover:bg-brand-red transition-colors shadow-[0_0_10px_rgba(255,59,92,0.3)]">Контакт с нами</a>
 
         <!-- Бургер-кнопка (мобильная) -->
         <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden flex flex-col gap-1.5 p-2">
-          <span class="w-6 h-0.5 bg-white transition-all" :class="mobileMenuOpen ? 'rotate-45 translate-y-2' : ''"></span>
-          <span class="w-6 h-0.5 bg-white transition-all" :class="mobileMenuOpen ? 'opacity-0' : ''"></span>
-          <span class="w-6 h-0.5 bg-white transition-all" :class="mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''"></span>
+          <span class="w-6 h-0.5 bg-text transition-all" :class="mobileMenuOpen ? 'rotate-45 translate-y-2' : ''"></span>
+          <span class="w-6 h-0.5 bg-text transition-all" :class="mobileMenuOpen ? 'opacity-0' : ''"></span>
+          <span class="w-6 h-0.5 bg-text transition-all" :class="mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''"></span>
         </button>
       </div>
 
@@ -227,47 +227,38 @@
            x-transition:leave="transition ease-in duration-150"
            x-transition:leave-start="opacity-100"
            x-transition:leave-end="opacity-0 -translate-y-2"
-           class="md:hidden border-t border-brand-border/30 bg-brand-bg/95 backdrop-blur-lg">
+           class="md:hidden border-t border-brand-border/30 bg-white/95 backdrop-blur-lg">
         <nav class="container mx-auto px-4 py-6 flex flex-col gap-4">
-          <a href="#gallery" @click="mobileMenuOpen = false" class="text-lg font-semibold text-brand-muted hover:text-brand-cyan transition-colors py-2 border-b border-brand-border/20">Кейсы</a>
-          <a href="process.html" @click="mobileMenuOpen = false" class="text-lg font-semibold text-brand-muted hover:text-brand-cyan transition-colors py-2 border-b border-brand-border/20">Процесс</a>
-          <a href="experience.html" @click="mobileMenuOpen = false" class="text-lg font-semibold text-brand-muted hover:text-brand-cyan transition-colors py-2 border-b border-brand-border/20">Опыт</a>
+          <a href="#gallery" @click="mobileMenuOpen = false" class="text-lg font-semibold text-brand-muted hover:text-brand-sky transition-colors py-2 border-b border-brand-border/20">Кейсы</a>
+          <a href="process.html" @click="mobileMenuOpen = false" class="text-lg font-semibold text-brand-muted hover:text-brand-sky transition-colors py-2 border-b border-brand-border/20">Процесс</a>
+          <a href="experience.html" @click="mobileMenuOpen = false" class="text-lg font-semibold text-brand-muted hover:text-brand-sky transition-colors py-2 border-b border-brand-border/20">Опыт</a>
           <a href="#contact" @click="mobileMenuOpen = false" class="mt-4 px-5 py-3 bg-brand-red/90 text-white rounded-lg text-center font-bold hover:bg-brand-red transition-colors shadow-[0_0_10px_rgba(255,59,92,0.3)]">Контакт с нами</a>
         </nav>
       </div>
     </header>
 
-    <!-- HERO -->
-    <section class="h-[80vh] flex items-center justify-center relative px-4">
+    <!-- HERO (компактная версия) -->
+    <section class="py-12 lg:py-16 relative px-4">
       <div class="container mx-auto max-w-5xl text-center z-10">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-surface/40 border border-brand-cyan/30 text-brand-cyan text-xs font-bold uppercase tracking-wider mb-8">
-          <span class="w-1.5 h-1.5 rounded-full bg-brand-cyan animate-pulse"></span> AGENCY OF NEW WAVE
-        </div>
-        
-        <h1 class="text-5xl sm:text-7xl lg:text-8xl font-black mb-6 leading-[0.95] tracking-tight">
-            <span class="block mb-2">
+        <h1 class="text-5xl sm:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tight">
+            <span class="block">
                 <span class="glitch-hero" data-text="Смыслы генерим МЫ">Смыслы генерим <span class="text-brand-red">МЫ</span></span>
             </span>
-            <span class="block">
+            <span class="block mt-1">
                 <span class="glitch-hero" data-text="Форму воплощает АИ">Форму воплощает <span class="text-brand-sky">АИ</span></span>
             </span>
         </h1>
         
-        <p class="text-brand-muted text-lg sm:text-xl max-w-xl mx-auto mb-10 leading-relaxed">
+        <p class="text-brand-muted text-lg sm:text-xl max-w-xl mx-auto mt-4 leading-relaxed">
           Команда стратегов и креаторов нового поколения. Стык человеческой эмпатии и вычислительной мощи.
         </p>
-        
-        <a href="#gallery" class="inline-flex items-center gap-3 px-8 py-4 bg-brand-text text-brand-bg rounded-xl font-bold hover:scale-105 transition-transform shadow-[0_0_20px_rgba(244,246,249,0.2)]">
-          <span>Смотреть работы</span>
-          <svg class="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-        </a>
       </div>
     </section>
 
     <!-- GALLERY -->
-    <section id="gallery" class="relative z-20">
-      <div class="container mx-auto px-4 mb-8 flex justify-between items-end">
-        <h2 class="text-2xl sm:text-3xl font-bold">Избранные кейсы</h2>
+    <section id="gallery" class="relative z-20 py-8">
+      <div class="container mx-auto px-4 mb-6 flex justify-between items-end">
+        <h2 class="text-2xl sm:text-3xl font-bold text-text">Избранные кейсы</h2>
         <div class="text-brand-muted text-sm font-mono hidden sm:block">← Свайпайте →</div>
       </div>
 
@@ -281,15 +272,15 @@
               <img :src="c.heroImage" 
                    :alt="c.title"
                    class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500">
-              <div class="absolute inset-0 bg-gradient-to-br from-brand-surface/60 to-brand-bg/60 group-hover:opacity-0 transition-opacity duration-300"></div>
-              <div class="absolute top-6 left-6 bg-black/60 backdrop-blur px-3 py-1 text-xs font-bold rounded border" :class="c.border + ' ' + c.color" x-text="c.category"></div>
-              <div class="absolute bottom-6 right-6 text-xs font-mono text-white/50 group-hover:text-brand-cyan transition-colors">Нажмите для деталей ↓</div>
+              <div class="absolute inset-0 bg-gradient-to-br from-brand-surface/60 to-white/60 group-hover:opacity-0 transition-opacity duration-300"></div>
+              <div class="absolute top-6 left-6 bg-white/80 backdrop-blur px-3 py-1 text-xs font-bold rounded border" :class="c.border + ' ' + c.color" x-text="c.category"></div>
+              <div class="absolute bottom-6 right-6 text-xs font-mono text-text/60 group-hover:text-brand-sky transition-colors">Нажмите для деталей ↓</div>
             </div>
             
-            <div class="w-full lg:w-2/5 h-1/2 lg:h-full p-6 lg:p-8 flex flex-col justify-between bg-brand-bg/40">
+            <div class="w-full lg:w-2/5 h-1/2 lg:h-full p-6 lg:p-8 flex flex-col justify-between bg-white/40">
               <div>
                 <p class="text-[10px] font-bold mb-2 uppercase tracking-widest" :class="c.color">Case Study</p>
-                <h3 class="text-2xl lg:text-3xl font-bold mb-4 group-hover:text-brand-cyan transition-colors" x-text="c.title"></h3>
+                <h3 class="text-2xl lg:text-3xl font-bold mb-4 text-text group-hover:text-brand-sky transition-colors" x-text="c.title"></h3>
                 <p class="text-brand-muted text-sm leading-relaxed" x-text="c.shortDesc"></p>
               </div>
             </div>
@@ -298,8 +289,6 @@
         <div class="case-slide w-4 shrink-0"></div>
       </div>
     </section>
-
-    <!-- ПРОЦЕСС ТЕПЕРЬ НА ОТДЕЛЬНОЙ СТРАНИЦЕ: process.html -->
 
     <!-- EXPANDABLE DETAIL PANEL -->
     <section id="detail-section" 
@@ -310,13 +299,13 @@
              x-transition:leave="transition ease-in duration-200"
              x-transition:leave-start="opacity-100"
              x-transition:leave-end="opacity-0"
-             class="relative z-30 w-full bg-[#081121] border-t border-brand-cyan/20 py-12 lg:py-20">
+             class="relative z-30 w-full bg-brand-surface border-t border-brand-sky/20 py-12 lg:py-20">
       
       <div class="container mx-auto px-4" x-cloak>
         <template x-if="activeCase !== null">
           <div class="max-w-5xl mx-auto flex flex-col gap-12">
             
-            <button @click="activeCase = null" class="self-start text-brand-muted hover:text-white text-sm font-mono flex items-center gap-2 transition-colors">
+            <button @click="activeCase = null" class="self-start text-brand-muted hover:text-text text-sm font-mono flex items-center gap-2 transition-colors">
               <span class="text-xl">←</span> Вернуться к галерее
             </button>
 
@@ -328,7 +317,7 @@
 
             <div class="space-y-6">
               <h3 class="text-sm font-bold uppercase tracking-widest" :class="cases[activeCase].color" x-text="cases[activeCase].category"></h3>
-              <h2 class="text-3xl lg:text-5xl font-bold" x-text="cases[activeCase].title"></h2>
+              <h2 class="text-3xl lg:text-5xl font-bold text-text" x-text="cases[activeCase].title"></h2>
               <div class="h-px w-full bg-gradient-to-r from-brand-border to-transparent"></div>
               <div class="text-brand-muted text-lg leading-relaxed space-y-6 max-w-4xl" x-html="cases[activeCase].fullDesc"></div>
             </div>
@@ -360,7 +349,7 @@
             </div>
 
             <div class="pt-8 border-t border-brand-border/30 mt-4">
-              <a href="#contact" class="inline-flex items-center gap-3 text-brand-cyan hover:text-white font-bold text-xl transition-colors group">
+              <a href="#contact" class="inline-flex items-center gap-3 text-brand-sky hover:text-brand-red font-bold text-xl transition-colors group">
                 <span class="text-3xl group-hover:translate-x-2 transition-transform">→</span>
                 Заказать проект для вашей компании
               </a>
@@ -372,13 +361,13 @@
     </section>
 
     <!-- CONTACT SECTION -->
-    <section id="contact" class="relative z-20 py-20 lg:py-32">
+    <section id="contact" class="relative z-20 py-20 lg:py-32 bg-brand-surface">
       <div class="container mx-auto px-4">
         <div class="text-center mb-16">
-          <h2 class="text-4xl sm:text-5xl font-black mb-4">
+          <h2 class="text-4xl sm:text-5xl font-black mb-4 text-text">
             <span class="glitch-hero" data-text="Контакт с нами">Контакт с нами</span>
           </h2>
-          <div class="h-1 w-24 bg-brand-cyan mx-auto rounded-full"></div>
+          <div class="h-1 w-24 bg-brand-sky mx-auto rounded-full"></div>
         </div>
 
         <div class="max-w-3xl mx-auto glass-card rounded-2xl p-8 lg:p-12">
@@ -387,10 +376,10 @@
             <div>
               <h3 class="text-sm font-bold uppercase tracking-widest text-brand-muted mb-4">Телефоны</h3>
               <div class="space-y-3">
-                <a href="tel:+79150257718" class="block text-2xl lg:text-3xl font-bold text-white hover:text-brand-cyan transition-colors">
+                <a href="tel:+79150257718" class="block text-2xl lg:text-3xl font-bold text-text hover:text-brand-sky transition-colors">
                   8 915 025 77 18
                 </a>
-                <a href="tel:+79035601635" class="block text-2xl lg:text-3xl font-bold text-white hover:text-brand-cyan transition-colors">
+                <a href="tel:+79035601635" class="block text-2xl lg:text-3xl font-bold text-text hover:text-brand-sky transition-colors">
                   8 903 560 16 35
                 </a>
               </div>
@@ -399,7 +388,7 @@
             <!-- Email -->
             <div>
               <h3 class="text-sm font-bold uppercase tracking-widest text-brand-muted mb-4">Email</h3>
-              <a href="mailto:info@pdvz02.ru" class="block text-xl lg:text-2xl font-bold text-brand-cyan hover:text-white transition-colors">
+              <a href="mailto:info@pdvz02.ru" class="block text-xl lg:text-2xl font-bold text-brand-sky hover:text-brand-red transition-colors">
                 info@pdvz02.ru
               </a>
             </div>
@@ -418,7 +407,7 @@
     </section>
 
     <!-- FOOTER -->
-    <footer class="border-t border-brand-border/30 py-8 text-center text-brand-muted text-xs relative z-20">
+    <footer class="border-t border-brand-border/30 py-8 text-center text-brand-muted text-xs relative z-20 bg-white">
       <div class="container mx-auto px-4">
         <p class="mb-2">&copy; 2026 Передвижники 2.0. Human + AI Agency.</p>
         <p class="opacity-50">Прототип витрины. В разработке.</p>
