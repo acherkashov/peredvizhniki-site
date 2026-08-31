@@ -5,35 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Процесс | Передвижники 2.0</title>
 
-    <!-- CDN: Tailwind + Fonts -->
+    <!-- CDN: Tailwind + Alpine + Fonts -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800;900&display=swap" rel="stylesheet">
 
     <style>
-        body { font-family: 'Manrope', sans-serif; background-color: #0A1428; color: #F4F6F9; }
+        [x-cloak] { display: none !important; }
+        body { font-family: 'Manrope', sans-serif; background-color: #FFFFFF; color: #0A1428; }
 
-        .glitch-quiet { position: relative; display: inline-block; color: #8B9BB4; font-weight: 800; transition: color 0.3s; }
-        .glitch-quiet:hover { color: #F4F6F9; }
+        .glitch-quiet { position: relative; display: inline-block; color: #5A6B8C; font-weight: 800; transition: color 0.3s; }
+        .glitch-quiet:hover { color: #0A1428; }
         .glitch-quiet::before, .glitch-quiet::after {
             content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.4; pointer-events: none;
         }
         .glitch-quiet::before { left: 1.5px; text-shadow: -1.5px 0 #FF3B5C; animation: drift-1 5s infinite linear alternate-reverse; }
-        .glitch-quiet::after { left: -1.5px; text-shadow: -1.5px 0 #00E5FF; animation: drift-2 6s infinite linear alternate-reverse; }
+        .glitch-quiet::after { left: -1.5px; text-shadow: -1.5px 0 #0EA5E9; animation: drift-2 6s infinite linear alternate-reverse; }
         @keyframes drift-1 { 0%{clip-path:inset(15% 0 85% 0)} 50%{clip-path:inset(75% 0 5% 0)} 100%{clip-path:inset(35% 0 45% 0)} }
         @keyframes drift-2 { 0%{clip-path:inset(85% 0 5% 0)} 50%{clip-path:inset(25% 0 65% 0)} 100%{clip-path:inset(65% 0 15% 0)} }
 
-        .glitch-hero { position: relative; display: inline-block; color: white; font-weight: 900; }
+        .glitch-hero { position: relative; display: inline-block; color: #0A1428; font-weight: 900; }
         .glitch-hero::before, .glitch-hero::after {
             content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.8;
         }
         .glitch-hero::before { left: 2px; text-shadow: -2px 0 #FF3B5C; animation: drift-1 2.5s infinite linear alternate-reverse; }
-        .glitch-hero::after { left: -2px; text-shadow: -2px 0 #00E5FF; animation: drift-2 3s infinite linear alternate-reverse; }
+        .glitch-hero::after { left: -2px; text-shadow: -2px 0 #0EA5E9; animation: drift-2 3s infinite linear alternate-reverse; }
 
-        .glass-card { background: rgba(17, 29, 51, 0.5); backdrop-filter: blur(16px); border: 1px solid rgba(26, 43, 69, 0.6); transition: all 0.4s ease; }
-        .glass-card:hover { border-color: #00E5FF; box-shadow: 0 0 30px rgba(0, 229, 255, 0.1); }
+        .glass-card { background: rgba(240, 244, 248, 0.7); backdrop-filter: blur(16px); border: 1px solid rgba(26, 43, 69, 0.1); transition: all 0.4s ease; }
+        .glass-card:hover { border-color: #0EA5E9; box-shadow: 0 0 30px rgba(14, 165, 233, 0.12); }
 
-        .scanlines { background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.12) 50%, rgba(0,0,0,0.12)); background-size: 100% 4px; pointer-events: none; }
-        .bg-watermark { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 25vw; font-weight: 900; opacity: 0.03; pointer-events: none; white-space: nowrap; z-index: 0; }
+        .scanlines { background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0) 50%, rgba(0,0,0,0.03) 50%, rgba(0,0,0,0.03)); background-size: 100% 4px; pointer-events: none; }
+        .bg-watermark { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 25vw; font-weight: 900; opacity: 0.02; pointer-events: none; white-space: nowrap; z-index: 0; color: #0A1428; }
     </style>
 
     <script>
@@ -41,7 +43,7 @@
             theme: {
                 extend: {
                     colors: {
-                        brand: { bg: '#0A1428', surface: '#111D33', border: '#1A2B45', cyan: '#00E5FF', red: '#FF3B5C', sky: '#7DD3FC', text: '#F4F6F9', muted: '#8B9BB4' }
+                        brand: { bg: '#FFFFFF', surface: '#F0F4F8', border: '#E2E8F0', cyan: '#00E5FF', red: '#FF3B5C', sky: '#0EA5E9', text: '#0A1428', muted: '#5A6B8C' }
                     },
                     fontFamily: { sans: ['Manrope', 'sans-serif'] }
                 }
@@ -53,35 +55,63 @@
 
   <!-- Background FX -->
   <div class="fixed inset-0 z-0 pointer-events-none">
-    <div class="absolute top-[-10%] right-[-5%] w-[40vw] h-[40vw] bg-brand-cyan/5 rounded-full blur-[100px]"></div>
+    <div class="absolute top-[-10%] right-[-5%] w-[40vw] h-[40vw] bg-brand-sky/5 rounded-full blur-[100px]"></div>
     <div class="absolute bottom-[-10%] left-[-5%] w-[40vw] h-[40vw] bg-brand-red/5 rounded-full blur-[100px]"></div>
     <div class="scanlines absolute inset-0 z-10"></div>
-    <div class="bg-watermark text-white select-none glitch-quiet" data-text="ПРОЦЕСС">ПРОЦЕСС</div>
+    <div class="bg-watermark text-text select-none glitch-quiet" data-text="ПРОЦЕСС">ПРОЦЕСС</div>
   </div>
 
-  <!-- HEADER -->
-  <header class="border-b border-brand-border/30 backdrop-blur-md sticky top-0 z-50 bg-brand-bg/80">
+  <!-- HEADER С МОБИЛЬНЫМ МЕНЮ -->
+  <header class="border-b border-brand-border/30 backdrop-blur-md sticky top-0 z-50 bg-white/80">
     <div class="container mx-auto px-4 py-3 flex justify-between items-center">
       <a href="index.html" class="flex items-center gap-3">
         <span class="glitch-quiet text-lg sm:text-xl uppercase tracking-tight" data-text="ПЕРЕДВИЖНИКИ 2.0">ПЕРЕДВИЖНИКИ 2.0</span>
       </a>
+      
+      <!-- Десктопное меню -->
       <nav class="hidden md:flex gap-6 text-sm font-semibold text-brand-muted tracking-wide">
-        <a href="index.html#gallery" class="hover:text-brand-cyan transition-colors">Кейсы</a>
-        <a href="process.html" class="text-brand-cyan">Процесс</a>
-        <a href="experience.html" class="hover:text-brand-cyan transition-colors">Опыт</a>
+        <a href="index.html#gallery" class="hover:text-brand-sky transition-colors">АИ Кейсы</a>
+        <a href="process.html" class="text-brand-sky">Процесс</a>
+        <a href="experience.html" class="hover:text-brand-sky transition-colors">Опыт</a>
       </nav>
-      <a href="#contact" class="px-5 py-2 bg-brand-red/90 text-white rounded-lg text-sm font-bold hover:bg-brand-red transition-colors shadow-[0_0_10px_rgba(255,59,92,0.3)]">Контакт с нами</a>
+      
+      <!-- Кнопка "Контакт с нами" (десктоп) -->
+      <a href="#contact" class="hidden md:inline-flex px-5 py-2 bg-brand-red/90 text-white rounded-lg text-sm font-bold hover:bg-brand-red transition-colors shadow-[0_0_10px_rgba(255,59,92,0.3)]">Контакт с нами</a>
+
+      <!-- Бургер-кнопка (мобильная) - КРАСНАЯ -->
+      <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden flex flex-col gap-1.5 p-2">
+        <span class="w-6 h-0.5 bg-brand-red transition-all" :class="mobileMenuOpen ? 'rotate-45 translate-y-2' : ''"></span>
+        <span class="w-6 h-0.5 bg-brand-red transition-all" :class="mobileMenuOpen ? 'opacity-0' : ''"></span>
+        <span class="w-6 h-0.5 bg-brand-red transition-all" :class="mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''"></span>
+      </button>
+    </div>
+
+    <!-- Мобильное меню (выпадающее) -->
+    <div x-show="mobileMenuOpen" 
+         x-transition:enter="transition ease-out duration-200"
+         x-transition:enter-start="opacity-0 -translate-y-2"
+         x-transition:enter-end="opacity-100 translate-y-0"
+         x-transition:leave="transition ease-in duration-150"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0 -translate-y-2"
+         class="md:hidden border-t border-brand-border/30 bg-white/95 backdrop-blur-lg">
+      <nav class="container mx-auto px-4 py-6 flex flex-col gap-4">
+        <a href="index.html#gallery" @click="mobileMenuOpen = false" class="text-lg font-semibold text-brand-muted hover:text-brand-sky transition-colors py-2 border-b border-brand-border/20">АИ Кейсы</a>
+        <a href="process.html" @click="mobileMenuOpen = false" class="text-lg font-semibold text-brand-sky py-2 border-b border-brand-border/20">Процесс</a>
+        <a href="experience.html" @click="mobileMenuOpen = false" class="text-lg font-semibold text-brand-muted hover:text-brand-sky transition-colors py-2 border-b border-brand-border/20">Опыт</a>
+        <a href="#contact" @click="mobileMenuOpen = false" class="mt-4 px-5 py-3 bg-brand-red/90 text-white rounded-lg text-center font-bold hover:bg-brand-red transition-colors shadow-[0_0_10px_rgba(255,59,92,0.3)]">Контакт с нами</a>
+      </nav>
     </div>
   </header>
 
   <!-- HERO -->
   <section class="relative px-4 pt-20 pb-12 lg:pt-28 lg:pb-16">
     <div class="container mx-auto max-w-5xl text-center z-10 relative">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-surface/40 border border-brand-cyan/30 text-brand-cyan text-xs font-bold uppercase tracking-wider mb-8">
-        <span class="w-1.5 h-1.5 rounded-full bg-brand-cyan animate-pulse"></span> Human + AI
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-surface border border-brand-sky/30 text-brand-sky text-xs font-bold uppercase tracking-wider mb-8">
+        <span class="w-1.5 h-1.5 rounded-full bg-brand-sky animate-pulse"></span> Human + AI
       </div>
 
-      <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black mb-6 leading-[0.95] tracking-tight">
+      <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black mb-6 leading-[0.95] tracking-tight text-text">
         <span class="glitch-hero" data-text="Процесс">Процесс</span>
       </h1>
 
@@ -94,77 +124,77 @@
   <!-- BLOCK 1: КАК МЫ РАБОТАЕМ -->
   <section class="relative z-10 px-4 pb-20">
     <div class="container mx-auto max-w-6xl">
-      <h3 class="text-2xl sm:text-3xl font-bold mb-8 flex items-center gap-3">
-        <span class="text-brand-cyan">01.</span>
+      <h3 class="text-2xl sm:text-3xl font-bold mb-8 flex items-center gap-3 text-text">
+        <span class="text-brand-sky">01.</span>
         Как мы работаем
         <span class="text-base font-normal text-brand-muted ml-2 hidden sm:inline">(спойлер: не так, как все)</span>
       </h3>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative">
-        <div class="glass-card p-6 rounded-xl relative overflow-hidden group hover:border-brand-cyan/50 transition-all duration-300">
+        <div class="glass-card p-6 rounded-xl relative overflow-hidden group hover:border-brand-sky/50 transition-all duration-300">
           <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-            <span class="text-8xl font-black text-white">01</span>
+            <span class="text-8xl font-black text-text">01</span>
           </div>
-          <h4 class="text-xl font-bold mb-3 relative z-10">Бриф</h4>
+          <h4 class="text-xl font-bold mb-3 relative z-10 text-text">Бриф</h4>
           <p class="text-brand-muted text-sm leading-relaxed mb-4 relative z-10">Сначала говорим. Долго. Созваниваемся, задаём неудобные вопросы, читаем между строк. Никакой магии промптов пока — просто люди слушают людей. Заполняете бриф → мы его препарируем.</p>
-          <div class="inline-flex items-center gap-2 px-3 py-1 bg-brand-surface/60 rounded-lg border border-brand-border/30 relative z-10">
+          <div class="inline-flex items-center gap-2 px-3 py-1 bg-white rounded-lg border border-brand-border relative z-10">
             <span class="w-2 h-2 rounded-full bg-brand-sky"></span>
             <span class="text-xs font-mono text-brand-sky">Андрей + Катя</span>
           </div>
         </div>
 
-        <div class="glass-card p-6 rounded-xl relative overflow-hidden group hover:border-brand-cyan/50 transition-all duration-300">
+        <div class="glass-card p-6 rounded-xl relative overflow-hidden group hover:border-brand-sky/50 transition-all duration-300">
           <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-            <span class="text-8xl font-black text-white">02</span>
+            <span class="text-8xl font-black text-text">02</span>
           </div>
-          <h4 class="text-xl font-bold mb-3 relative z-10">Исследование</h4>
+          <h4 class="text-xl font-bold mb-3 relative z-10 text-text">Исследование</h4>
           <p class="text-brand-muted text-sm leading-relaxed mb-4 relative z-10">Лезем в данные. Конкуренты, рынок, аудитория, тренды. Кабинетное исследование — скучное название для работы, которая занимала раньше неделю. Сейчас — день. Кирюша с Германом роются в массивах, мы думаем головой.</p>
-          <div class="inline-flex items-center gap-2 px-3 py-1 bg-brand-surface/60 rounded-lg border border-brand-border/30 relative z-10">
-            <span class="w-2 h-2 rounded-full bg-brand-cyan"></span>
-            <span class="text-xs font-mono text-brand-cyan">Андрей + Кирюша / Катя + Герман</span>
+          <div class="inline-flex items-center gap-2 px-3 py-1 bg-white rounded-lg border border-brand-border relative z-10">
+            <span class="w-2 h-2 rounded-full bg-brand-sky"></span>
+            <span class="text-xs font-mono text-brand-sky">Андрей + Кирюша / Катя + Герман</span>
           </div>
         </div>
 
-        <div class="glass-card p-6 rounded-xl relative overflow-hidden group hover:border-brand-cyan/50 transition-all duration-300">
+        <div class="glass-card p-6 rounded-xl relative overflow-hidden group hover:border-brand-sky/50 transition-all duration-300">
           <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-            <span class="text-8xl font-black text-white">03</span>
+            <span class="text-8xl font-black text-text">03</span>
           </div>
-          <h4 class="text-xl font-bold mb-3 relative z-10">Смыслы</h4>
+          <h4 class="text-xl font-bold mb-3 relative z-10 text-text">Смыслы</h4>
           <p class="text-brand-muted text-sm leading-relaxed mb-4 relative z-10">Главное делаем сами. Позиция бренда, инсайт, идея — это не генерируется. Это нащупывается. Андрей и Катя формулируют первые гипотезы, потом проверяют их об Кирюшу и Германа: «А вы что думаете?» Иногда машины удивляют. Чаще — мы.</p>
-          <div class="inline-flex items-center gap-2 px-3 py-1 bg-brand-surface/60 rounded-lg border border-brand-border/30 relative z-10">
+          <div class="inline-flex items-center gap-2 px-3 py-1 bg-white rounded-lg border border-brand-border relative z-10">
             <span class="w-2 h-2 rounded-full bg-brand-red"></span>
             <span class="text-xs font-mono text-brand-red">Андрей + Катя → Кирюша + Герман → снова люди</span>
           </div>
         </div>
 
-        <div class="glass-card p-6 rounded-xl relative overflow-hidden group hover:border-brand-cyan/50 transition-all duration-300 md:col-span-2 lg:col-span-1">
+        <div class="glass-card p-6 rounded-xl relative overflow-hidden group hover:border-brand-sky/50 transition-all duration-300 md:col-span-2 lg:col-span-1">
           <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-            <span class="text-8xl font-black text-white">04</span>
+            <span class="text-8xl font-black text-text">04</span>
           </div>
-          <h4 class="text-xl font-bold mb-3 relative z-10">Вариации</h4>
+          <h4 class="text-xl font-bold mb-3 relative z-10 text-text">Вариации</h4>
           <p class="text-brand-muted text-sm leading-relaxed mb-4 relative z-10">Множим без потери качества. Одна сильная идея → 10 форматов, 3 аудитории, 5 каналов. Раньше это называлось «нет бюджета». Теперь — стандарт работы.</p>
-          <div class="inline-flex items-center gap-2 px-3 py-1 bg-brand-surface/60 rounded-lg border border-brand-border/30 relative z-10">
+          <div class="inline-flex items-center gap-2 px-3 py-1 bg-white rounded-lg border border-brand-border relative z-10">
             <span class="w-2 h-2 rounded-full bg-brand-sky"></span>
             <span class="text-xs font-mono text-brand-sky">Кирюша + Герман × контроль Андрея и Кати</span>
           </div>
         </div>
 
-        <div class="glass-card p-6 rounded-xl relative overflow-hidden group hover:border-brand-cyan/50 transition-all duration-300 md:col-span-2 lg:col-span-2">
+        <div class="glass-card p-6 rounded-xl relative overflow-hidden group hover:border-brand-sky/50 transition-all duration-300 md:col-span-2 lg:col-span-2">
           <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-            <span class="text-8xl font-black text-white">05</span>
+            <span class="text-8xl font-black text-text">05</span>
           </div>
-          <h4 class="text-xl font-bold mb-3 relative z-10">Презентация</h4>
+          <h4 class="text-xl font-bold mb-3 relative z-10 text-text">Презентация</h4>
           <p class="text-brand-muted text-sm leading-relaxed mb-4 relative z-10">Показываем живым людям. Не PDF в почту. Встреча, объяснение логики, обсуждение. Потому что стратегия — это не файл, это разговор.</p>
-          <div class="inline-flex items-center gap-2 px-3 py-1 bg-brand-surface/60 rounded-lg border border-brand-border/30 relative z-10">
-            <span class="w-2 h-2 rounded-full bg-brand-cyan"></span>
-            <span class="text-xs font-mono text-brand-cyan">Андрей + Катя</span>
+          <div class="inline-flex items-center gap-2 px-3 py-1 bg-white rounded-lg border border-brand-border relative z-10">
+            <span class="w-2 h-2 rounded-full bg-brand-sky"></span>
+            <span class="text-xs font-mono text-brand-sky">Андрей + Катя</span>
           </div>
         </div>
       </div>
 
-      <div class="mt-8 p-6 bg-brand-surface/30 border-l-4 border-brand-red rounded-r-xl backdrop-blur-sm">
+      <div class="mt-8 p-6 bg-brand-surface border-l-4 border-brand-red rounded-r-xl">
         <p class="text-brand-muted italic text-lg">
-          <span class="text-white font-bold not-italic">Кирюша и Герман у нас не пишут стратегию.</span> Они держат фонарик, пока мы думаем.
+          <span class="text-text font-bold not-italic">Кирюша и Герман у нас не пишут стратегию.</span> Они держат фонарик, пока мы думаем.
         </p>
       </div>
     </div>
@@ -173,43 +203,43 @@
   <!-- BLOCK 2: ЧТО УМЕЕМ -->
   <section class="relative z-10 px-4 pb-24">
     <div class="container mx-auto max-w-6xl">
-      <h3 class="text-2xl sm:text-3xl font-bold mb-8 flex items-center gap-3">
-        <span class="text-brand-cyan">02.</span>
+      <h3 class="text-2xl sm:text-3xl font-bold mb-8 flex items-center gap-3 text-text">
+        <span class="text-brand-sky">02.</span>
         Что умеем
       </h3>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="glass-card p-6 rounded-xl group hover:-translate-y-1 transition-all duration-300 border-l-4 border-l-brand-cyan">
-          <h4 class="text-lg font-bold mb-2 text-white flex items-center gap-2">
-            <span class="text-brand-cyan">▹</span> Исследования
+        <div class="glass-card p-6 rounded-xl group hover:-translate-y-1 transition-all duration-300 border-l-4 border-l-brand-sky">
+          <h4 class="text-lg font-bold mb-2 text-text flex items-center gap-2">
+            <span class="text-brand-sky">▹</span> Исследования
           </h4>
           <p class="text-brand-muted text-sm leading-relaxed">Роемся там, куда другие не лезут. Рынок, конкуренты, аудитория — не реферат из интернета, а живые инсайты, которые потом становятся идеями.</p>
         </div>
 
-        <div class="glass-card p-6 rounded-xl group hover:-translate-y-1 transition-all duration-300 border-l-4 border-l-brand-sky">
-          <h4 class="text-lg font-bold mb-2 text-white flex items-center gap-2">
-            <span class="text-brand-sky">▹</span> Стратегия бренда
+        <div class="glass-card p-6 rounded-xl group hover:-translate-y-1 transition-all duration-300 border-l-4 border-l-brand-red">
+          <h4 class="text-lg font-bold mb-2 text-text flex items-center gap-2">
+            <span class="text-brand-red">▹</span> Стратегия бренда
           </h4>
           <p class="text-brand-muted text-sm leading-relaxed">Находим, чем бренд отличается от всех остальных. Если бренда ещё нет — придумываем, чем он будет отличаться. Позиция, смысл, характер.</p>
         </div>
 
         <div class="glass-card p-6 rounded-xl group hover:-translate-y-1 transition-all duration-300 border-l-4 border-l-brand-red">
-          <h4 class="text-lg font-bold mb-2 text-white flex items-center gap-2">
+          <h4 class="text-lg font-bold mb-2 text-text flex items-center gap-2">
             <span class="text-brand-red">▹</span> Новые бренды и продукты
           </h4>
           <p class="text-brand-muted text-sm leading-relaxed">Чистый лист — наша любимая история. Берём идею, дотягиваем до имени, голоса и ощущения. Чтобы не «ещё один», а «о, это интересно».</p>
         </div>
 
-        <div class="glass-card p-6 rounded-xl group hover:-translate-y-1 transition-all duration-300 border-l-4 border-l-brand-cyan">
-          <h4 class="text-lg font-bold mb-2 text-white flex items-center gap-2">
-            <span class="text-brand-cyan">▹</span> Коммуникационная стратегия
+        <div class="glass-card p-6 rounded-xl group hover:-translate-y-1 transition-all duration-300 border-l-4 border-l-brand-sky">
+          <h4 class="text-lg font-bold mb-2 text-text flex items-center gap-2">
+            <span class="text-brand-sky">▹</span> Коммуникационная стратегия
           </h4>
           <p class="text-brand-muted text-sm leading-relaxed">О чём говорить, как говорить и с кем. Без медиабюджетов и пустых слайдов про «tone of voice». Только логика, которую можно взять и использовать.</p>
         </div>
 
-        <div class="glass-card p-6 rounded-xl group hover:-translate-y-1 transition-all duration-300 border-l-4 border-l-brand-sky md:col-span-2">
-          <h4 class="text-lg font-bold mb-2 text-white flex items-center gap-2">
-            <span class="text-brand-sky">▹</span> Креативная стратегия
+        <div class="glass-card p-6 rounded-xl group hover:-translate-y-1 transition-all duration-300 border-l-4 border-l-brand-red md:col-span-2">
+          <h4 class="text-lg font-bold mb-2 text-text flex items-center gap-2">
+            <span class="text-brand-red">▹</span> Креативная стратегия
           </h4>
           <p class="text-brand-muted text-sm leading-relaxed">Большая идея, вокруг которой всё складывается. Кампании, активации, контент — не набор тактик, а один внятный смысл в разных форматах.</p>
         </div>
@@ -218,41 +248,74 @@
   </section>
 
   <!-- CONTACT SECTION -->
-  <section id="contact" class="relative z-20 py-20 lg:py-32">
+  <section id="contact" class="relative z-20 py-20 lg:py-32 bg-brand-surface">
     <div class="container mx-auto px-4">
       <div class="text-center mb-16">
-        <h2 class="text-4xl sm:text-5xl font-black mb-4">
+        <h2 class="text-4xl sm:text-5xl font-black mb-4 text-text">
           <span class="glitch-hero" data-text="Контакт с нами">Контакт с нами</span>
         </h2>
-        <div class="h-1 w-24 bg-brand-cyan mx-auto rounded-full"></div>
+        <div class="h-1 w-24 bg-brand-sky mx-auto rounded-full"></div>
       </div>
 
       <div class="max-w-3xl mx-auto glass-card rounded-2xl p-8 lg:p-12">
-        <div class="space-y-8 text-center">
-          <!-- Телефоны -->
+        <div class="space-y-10 text-center">
+          
+          <!-- Первый контакт: Андрей -->
           <div>
-            <h3 class="text-sm font-bold uppercase tracking-widest text-brand-muted mb-4">Телефоны</h3>
-            <div class="space-y-3">
-              <a href="tel:+79150257718" class="block text-2xl lg:text-3xl font-bold text-white hover:text-brand-cyan transition-colors">
-                8 915 025 77 18
+            <h3 class="text-sm font-bold uppercase tracking-widest text-brand-muted mb-4">Андрей Черкашов</h3>
+            <a href="tel:+79150257718" class="block text-2xl lg:text-3xl font-bold text-text hover:text-brand-sky transition-colors mb-5">
+              +7 915 025 77 18
+            </a>
+            <div class="flex justify-center items-center gap-5">
+              <!-- Telegram (крупный, как Max) -->
+              <a href="https://t.me/acherkashov" target="_blank" class="w-16 h-16 flex items-center justify-center hover:scale-110 transition-transform" title="Telegram">
+                <svg class="w-16 h-16 text-[#229ED9]" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161c-.18 1.897-.962 6.502-1.359 8.627-.168.9-.5 1.201-.82 1.23-.697.064-1.226-.461-1.901-.903-1.056-.692-1.653-1.123-2.678-1.799-1.185-.781-.417-1.21.258-1.911.177-.184 3.247-2.977 3.307-3.23.007-.032.015-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.139-5.062 3.345-.479.329-.913.489-1.302.481-.428-.009-1.252-.242-1.865-.442-.751-.244-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.831-2.529 6.998-3.015 3.333-1.386 4.025-1.627 4.477-1.635.099-.002.321.023.465.141.121.099.154.232.17.325.015.093.034.305.019.471z"/>
+                </svg>
               </a>
-              <a href="tel:+79035601635" class="block text-2xl lg:text-3xl font-bold text-white hover:text-brand-cyan transition-colors">
-                8 903 560 16 35
+              <!-- WhatsApp (крупный, как Max) -->
+              <a href="https://wa.me/79150257718" target="_blank" class="w-16 h-16 flex items-center justify-center hover:scale-110 transition-transform" title="WhatsApp">
+                <svg class="w-16 h-16 text-[#25D366]" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                </svg>
+              </a>
+              <!-- Max (точная иконка из max.svg) -->
+              <a href="https://max.ru/u/f9LHodD0cOL4R1xVWoNKFsrDIYAEBCza0hDhGeQpb-5hB4GlYMZNp1zOkgQ" target="_blank" class="w-16 h-16 rounded-full overflow-hidden hover:scale-110 transition-transform" title="Max">
+                <img src="images/max.svg" alt="Max" class="w-16 h-16 object-cover">
+              </a>
+            </div>
+          </div>
+
+          <div class="h-px w-full bg-brand-border/30"></div>
+
+          <!-- Второй контакт: Екатерина -->
+          <div>
+            <h3 class="text-sm font-bold uppercase tracking-widest text-brand-muted mb-4">Екатерина Сычева</h3>
+            <a href="tel:+79035601635" class="block text-2xl lg:text-3xl font-bold text-text hover:text-brand-sky transition-colors mb-5">
+              +7 903 560 16 35
+            </a>
+            <div class="flex justify-center items-center gap-5">
+              <!-- Telegram (крупный, как Max) -->
+              <a href="https://t.me/+79035601635" target="_blank" class="w-16 h-16 flex items-center justify-center hover:scale-110 transition-transform" title="Telegram">
+                <svg class="w-16 h-16 text-[#229ED9]" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161c-.18 1.897-.962 6.502-1.359 8.627-.168.9-.5 1.201-.82 1.23-.697.064-1.226-.461-1.901-.903-1.056-.692-1.653-1.123-2.678-1.799-1.185-.781-.417-1.21.258-1.911.177-.184 3.247-2.977 3.307-3.23.007-.032.015-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.139-5.062 3.345-.479.329-.913.489-1.302.481-.428-.009-1.252-.242-1.865-.442-.751-.244-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.831-2.529 6.998-3.015 3.333-1.386 4.025-1.627 4.477-1.635.099-.002.321.023.465.141.121.099.154.232.17.325.015.093.034.305.019.471z"/>
+                </svg>
+              </a>
+              <!-- WhatsApp (крупный, как Max) -->
+              <a href="https://wa.me/79035601635" target="_blank" class="w-16 h-16 flex items-center justify-center hover:scale-110 transition-transform" title="WhatsApp">
+                <svg class="w-16 h-16 text-[#25D366]" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                </svg>
               </a>
             </div>
           </div>
 
           <!-- Email -->
-          <div>
+          <div class="pt-6 border-t border-brand-border/30">
             <h3 class="text-sm font-bold uppercase tracking-widest text-brand-muted mb-4">Email</h3>
-            <a href="mailto:info@pdvz02.ru" class="block text-xl lg:text-2xl font-bold text-brand-cyan hover:text-white transition-colors">
+            <a href="mailto:info@pdvz02.ru" class="block text-xl lg:text-2xl font-bold text-brand-sky hover:text-brand-red transition-colors mb-6">
               info@pdvz02.ru
             </a>
-          </div>
-
-          <!-- CTA -->
-          <div class="pt-6 border-t border-brand-border/30">
-            <p class="text-brand-muted text-center mb-6">Напишите нам или позвоните — обсудим ваш проект</p>
             <a href="mailto:info@pdvz02.ru" class="inline-flex items-center gap-3 px-8 py-4 bg-brand-red/90 text-white rounded-xl font-bold hover:bg-brand-red transition-colors shadow-[0_0_20px_rgba(255,59,92,0.3)]">
               <span>Написать письмо</span>
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
@@ -264,7 +327,7 @@
   </section>
 
   <!-- FOOTER -->
-  <footer class="border-t border-brand-border/30 py-8 text-center text-brand-muted text-xs relative z-20">
+  <footer class="border-t border-brand-border/30 py-8 text-center text-brand-muted text-xs relative z-20 bg-white">
     <div class="container mx-auto px-4">
       <p class="mb-2">&copy; 2026 Передвижники 2.0. Human + AI Agency.</p>
       <p class="opacity-50">Процесс. Как мы работаем.</p>
