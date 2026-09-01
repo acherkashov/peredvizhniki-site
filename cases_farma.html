@@ -145,7 +145,7 @@
                         keyMessage: 'Принцессе «на натоптыше» помогает Салипод',
                         fullDesc: `<p><span class="text-brand-red font-bold">Задача:</span> увеличить ценность бренда Салипод в глазах потребителя и заложить основу для роста цены — без смены упаковки. Омолодить восприятие и вывести продукт из привычной «аптечно-возрастной» коммуникации в более современное, заметное и эмоциональное поле.</p><p class="mt-4"><span class="text-text font-bold">Решение:</span> Мы обратились к архитипу, знакомому всем с детства - сказке про принцессу на горошине. Сегодняшняя "горошина" - это натоптыш, который может испортить весь день. Салипод берёт на себя роль спасителя: деликатно, точно, эффективно избавляя от боли. Теперь каждый, кто заботится о комфорте своих ног, чувствует себя героем новой сказки.</p><p class="mt-4"><span class="text-brand-sky font-bold">Что сделано:</span> рекламная идея, ролик, key visual, нестандартные POSM-материалы, аптечные дисплеи, промо-носители, визуальная система кампании.</p><p class="mt-4"><span class="text-brand-sky font-bold">Результат:</span> бренд получил более молодой, эмоциональный и заметный образ, расширив аудиторию за счёт женщин, для которых проблема натоптышей связана не с возрастом, а с активной жизнью, красотой и обувью на каблуках.</p>`,
                         media: [
-                            { kind: 'video', span: 'wide', src: 'videos/farma/salipod-roll.mp4', label: 'Ролик: современная сказка' },
+                            { kind: 'video', span: 'wide', src: 'https://rutube.ru/video/decab8f2cf8ea7ffe6a1a629828226d1/?r=plwd', label: 'Ролик: современная сказка' },
                             { kind: 'kv', span: 'tall', src: 'images/farma/salipod-kv-1.jpg', label: 'KV: принцесса «на натоптыше»' },
                             { kind: 'banner', span: 'tall', src: 'images/farma/salipod-banner-1.jpg', label: 'Интернет-баннер: «Принцессе «на натоптыше» помогает Салипод»' }
                         ]
@@ -379,6 +379,15 @@
                     return url.endsWith('.mp4') || url.endsWith('.webm');
                 },
 
+                isRutube(url) {
+                    return url.includes('rutube.ru');
+                },
+
+                rutubeEmbed(url) {
+                    const m = url.match(/rutube\.ru\/(?:video\/|play\/embed\/)?([a-zA-Z0-9]+)/);
+                    return m ? 'https://rutube.ru/play/embed/' + m[1] + '/' : url;
+                },
+
                 mediaIcon(kind) {
                     return { video: '🎬', kv: '🖼️', banner: '🖥️' }[kind] || '📁';
                 }
@@ -531,7 +540,15 @@
                                     x-text="isVideo(m.src) ? 'положи ролик с этим именем в videos/farma' : 'положи файл с этим именем в images/farma'"></span>
                             </div>
 
-                            <template x-if="!isVideo(m.src)">
+                            <!-- Rutube iframe -->
+                            <template x-if="isRutube(m.src)">
+                              <div class="relative w-full rounded-xl overflow-hidden bg-black" style="aspect-ratio: 16 / 9;">
+                                <iframe :src="rutubeEmbed(m.src)" class="absolute inset-0 w-full h-full" frameborder="0"
+                                        allow="clipboard-write; autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                              </div>
+                            </template>
+
+                            <template x-if="!isVideo(m.src) && !isRutube(m.src)">
                               <img :src="m.src" :alt="m.label" @error="missing = true" x-show="!missing"
                                    class="w-full h-auto block rounded-xl">
                             </template>
